@@ -1,5 +1,6 @@
 import React, {  useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { adminlogIn } from "../../api/admin/AuthRequest";
 
 
 const Login = () => {
@@ -24,10 +25,11 @@ const Login = () => {
     seIsSubmit(true);
     if (Object.keys(dataErrors).length === 0 && isSubmit) {
       console.log(formData, "okkkk");
-	//   logIn(formData)
-	
-        navigate("/admin");
-      
+      const loginData = await adminlogIn(formData);
+      console.log(loginData,'adminlogindata');
+        if (loginData) {
+          navigate("/admin");
+        }
     }
   };
 

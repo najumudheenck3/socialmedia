@@ -6,6 +6,7 @@ export interface IUser extends Document {
   email: string;
   password: string;
   verified:boolean;
+  isActive:boolean;
 
 }
 
@@ -30,6 +31,10 @@ const UserSchema: Schema = new Schema({
   verified: {
     type: Boolean,
     default: false,
+  },
+  isActive: {
+    type: Boolean,
+    default: true,
   }
 });
 

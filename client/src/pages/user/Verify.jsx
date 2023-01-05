@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { verifyAccount } from '../../api/AuthRequest'
+import { verifyAccount } from '../../api/user/AuthRequest'
 import toast from 'react-hot-toast'
 
 

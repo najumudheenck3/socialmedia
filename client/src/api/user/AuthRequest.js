@@ -1,14 +1,9 @@
-import axios from "axios";
 import toast from 'react-hot-toast'
+import { userApi } from '../../utils/apiCall';
 
-
-const API=axios.create({
-    baseURL:process.env.REACT_APP_URL,
-  withCredentials: true
-})
 
 export const signUp=async(formData)=>{
-  const {data}=await API.post('/register',formData)
+  const {data}=await userApi.post('/register',formData)
   console.log(data);
   console.log(data.message);
   if(data.success){
@@ -17,7 +12,7 @@ export const signUp=async(formData)=>{
 }
 export const logIn=async(formData)=>{
 try {
-  const {data}=await API.post('/login',formData)
+  const {data}=await userApi.post('/login',formData)
   console.log(data);
   if(data.success){
     toast.success(data.message);
@@ -35,4 +30,4 @@ try {
 
 }
 
-export const verifyAccount=async(userId,token)=>API.put('/verify',{userId,token})
+export const verifyAccount=async(userId,token)=>userApi.put('/verify',{userId,token})

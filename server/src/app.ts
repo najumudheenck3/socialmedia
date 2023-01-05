@@ -13,7 +13,7 @@ app.use(CORS({
     origin: ['http://localhost:3000'],
     methods: ['GET', 'POST','PUT'],
     credentials: true,
-    allowedHeaders: [ 'Content-Type', 'Access' ]}
+    exposedHeaders: ['Content-Length', 'X-Foo', 'X-Bar']},
     ))
 
 app.use('/',UserRoute)

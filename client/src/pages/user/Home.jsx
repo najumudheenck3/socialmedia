@@ -4,7 +4,7 @@ import Stories from '../../components/user/stories/Stories'
 
 const Home = () => {
   return (
-    <div>
+    <div >
       <Stories/>
       <Posts/>
 

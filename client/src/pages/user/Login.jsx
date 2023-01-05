@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { logIn } from "../../api/AuthRequest";
+import { logIn } from "../../api/user/AuthRequest";
+import { hideLoading, showLoading } from "../../redux/alertSlice";
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch=useDispatch()
 
   const initialValues = {
     email: "",
@@ -23,10 +26,10 @@ const Login = () => {
     setDataErrors(validate(formData));
     seIsSubmit(true);
     if (Object.keys(dataErrors).length === 0 && isSubmit) {
-      console.log(formData, "okkkk");
-	//   logIn(formData);
+      //   logIn(formData);
+      dispatch(showLoading())
       const loginData = await logIn(formData);
-	  console.log(loginData,'logindata');
+      dispatch(hideLoading())
       if (loginData) {
         navigate("/");
       }
@@ -148,7 +151,7 @@ const Login = () => {
                         className="inline-block text-sm text-specclr align-baseline hover:text-cyan-700"
                         href="./index.html"
                       >
-                      Crate an account? SignUp!
+                        Crate an account? SignUp!
                       </a>
                     </Link>
                   </div>

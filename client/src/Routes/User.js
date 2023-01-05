@@ -9,6 +9,7 @@ import Register from '../pages/user/Register'
 import Profile from '../pages/user/Profile'
 import Verify from '../pages/user/Verify'
 import ProtectedRoute from '../components/user/routes/ProtectedRoute'
+import PublicRoute from '../components/user/routes/PublicRoute'
 
 
 const User = () => {
@@ -16,12 +17,12 @@ const User = () => {
   const Layout = () => {
 
     return (
-      <div className=''>
+      <div className='bg-slate-200'>
         <Navbar />
         <div className=' flex '>
           
           <LeftBar />
-          <div className="flex w-6/12">
+          <div className="flex w-6/12 ml-4 mt-2">
           <Outlet/>
           </div>
           <RightBar />
@@ -32,15 +33,15 @@ const User = () => {
 
   return (
     <>
-    <ProtectedRoute>
+    
       <Routes>
-        <Route path="/" element={<Layout />}  >
+       <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}  >
           <Route path='' element={<Home/>}></Route>
-          <Route path='profile' element={<Profile/>}></Route>
+          <Route path='profile/:id' element={<Profile/>}></Route>
         </Route>
       </Routes>
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
       </Routes>
       <Routes>
         <Route path="/register" element={<Register />} />
@@ -48,7 +49,7 @@ const User = () => {
       <Routes>
         <Route path="/verify" element={<Verify/>} />
       </Routes>
-      </ProtectedRoute>
+      
     </>
   )
 }

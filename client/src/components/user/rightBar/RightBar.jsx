@@ -3,9 +3,9 @@ import CakeIcon from "@mui/icons-material/Cake";
 
 const RightBar = () => {
   return (
-    <div className=" w-3/12 ">
+    <div className=" w-3/12 hidden md:block">
       <div className="p-4">
-        <div className="shadow-md p-2 rounded-md mb-6">
+        <div className=" bg-white shadow-md p-2 rounded-md mb-6">
           <span className="text-gray-600 ">Friend Requests</span>
           <div className="flex item-center content-center justify-between">
             <div className="flex item-center content-center gap-x-1">
@@ -26,7 +26,7 @@ const RightBar = () => {
             </div>
           </div>
         </div>
-        <div className="shadow-md p-2 rounded-md mb-6">
+        <div className=" bg-white shadow-md p-2 rounded-md mb-6">
           <span className="text-gray-600 ">Birthdays</span>
           <div className="flex items-center content-between gap-6">
             <div>
@@ -40,7 +40,7 @@ const RightBar = () => {
             </div>
           </div>
         </div>
-        <div className="shadow-md p-2 rounded-md">
+        <div className=" bg-white shadow-md p-2 rounded-md">
           <span className="text-gray-600 ">Contacts</span>
           <div className="flex item-center content-center justify-between">
             <div className="flex item-center content-center gap-x-1">

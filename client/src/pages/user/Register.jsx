@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { signUp } from '../../api/AuthRequest'
+import { signUp } from '../../api/user/AuthRequest'
 import { Link } from 'react-router-dom'
 
 const Register = () => {
