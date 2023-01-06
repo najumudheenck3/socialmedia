@@ -39,6 +39,7 @@ const Post = ({ post }) => {
             src={post.img}
             alt=""
           />
+        
           <p>Lorem ipsum dolor sit amet consectetur adipisicing e</p>
         </div>
         {/* info */}

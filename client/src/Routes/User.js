@@ -10,6 +10,7 @@ import Profile from '../pages/user/Profile'
 import Verify from '../pages/user/Verify'
 import ProtectedRoute from '../components/user/routes/ProtectedRoute'
 import PublicRoute from '../components/user/routes/PublicRoute'
+import MobileFooter from '../components/user/mobilefooter/MobileFooter'
 
 
 const User = () => {
@@ -22,11 +23,12 @@ const User = () => {
         <div className=' flex '>
           
           <LeftBar />
-          <div className="flex w-6/12 ml-4 mt-2  max-md:w-full">
+          <div className="flex w-6/12 ml-4 mt-2  max-md:w-full max-md:mx-2">
           <Outlet/>
           </div>
           <RightBar />
         </div>
+      <MobileFooter/>
       </div>
     )
   }

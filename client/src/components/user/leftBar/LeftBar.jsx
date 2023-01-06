@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 const LeftBar = () => {
   return (
-    <div className="flex w-3/12 bg-white shadow-md max-md:w-0">
+    <div className="hidden md:block h-full sticky top-16  w-3/12 bg-white shadow-md  max-md:w-0">
       <div className="p-7 ">
         <div className="flex flex-col space-y-2">
           <div className="flex items-center gap-x-3  hover:bg-slate-300 h-12 p-2 rounded">
@@ -56,17 +56,7 @@ const LeftBar = () => {
             <MessageOutlinedIcon />
             <span>Messages</span>
           </div>
-          <div className="flex items-center gap-x-3  hover:bg-slate-300 h-12 p-2 rounded">
-            <NotificationsNoneOutlinedIcon />
-            <span>Notifications</span>
-          </div><div className="flex items-center gap-x-3  hover:bg-slate-300 h-12 p-2 rounded">
-            <MessageOutlinedIcon />
-            <span>Messages</span>
-          </div>
-          <div className="flex items-center gap-x-3  hover:bg-slate-300 h-12 p-2 rounded">
-            <NotificationsNoneOutlinedIcon />
-            <span>Notifications</span>
-          </div>
+          
         </div>
       </div>
     </div>
