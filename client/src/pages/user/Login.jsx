@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logIn } from "../../api/user/AuthRequest";
 import { hideLoading, showLoading } from "../../redux/alertSlice";
+import { userActions } from "../../redux/userSlice";
 
 const Login = () => {
   const navigate = useNavigate();
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
 
   const initialValues = {
     email: "",
@@ -14,7 +15,7 @@ const Login = () => {
   };
   const [formData, setFormData] = useState(initialValues);
   const [dataErrors, setDataErrors] = useState({});
-  const [isSubmit, seIsSubmit] = useState(false);
+  const [isSubmit, setIsSubmit] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,26 +25,25 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setDataErrors(validate(formData));
-    seIsSubmit(true);
+    setIsSubmit(true);
+    console.log(Object.keys(dataErrors).length, "datalentht");
+    console.log(isSubmit, "isbubjjm");
     if (Object.keys(dataErrors).length === 0 && isSubmit) {
-      //   logIn(formData);
-      dispatch(showLoading())
+      console.log("first ti,me");
+      dispatch(showLoading());
       const loginData = await logIn(formData);
-      dispatch(hideLoading())
+      dispatch(hideLoading());
       if (loginData) {
+        dispatch(
+          userActions.setUserDetails({
+            name: localStorage.getItem("userName"),
+            token: localStorage.getItem("token"),
+          })
+        );
         navigate("/");
       }
     }
   };
-
-  useEffect(() => {
-    // console.log(dataErrors);
-    // if (Object.keys(dataErrors).length === 0 && isSubmit) {
-    // 	console.log(formData, 'okkkk')
-    // 	logIn(formData)
-    // }
-  }, [dataErrors]);
-
   const validate = (values) => {
     const errors = {};
     const emailRegex =

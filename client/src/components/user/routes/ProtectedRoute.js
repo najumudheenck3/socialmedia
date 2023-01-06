@@ -10,11 +10,10 @@ const ProtectedRoute = (props) => {
     
     useEffect(() => {
         dispatch(userActions.setUserDetails({ name: localStorage.getItem('userName'), token: localStorage.getItem('token') }))
-   
-    }, [])
+    }, [dispatch])
     const user = useSelector((state) => state.user);
     console.log(user,'kkkk');
-    if (user.userToken) {
+    if (localStorage.getItem('token')) {
         console.log('ullilund');
         return props.children
     } else {

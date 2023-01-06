@@ -3,7 +3,7 @@ import CakeIcon from "@mui/icons-material/Cake";
 
 const RightBar = () => {
   return (
-    <div className=" w-3/12 hidden md:block">
+    <div className=" w-3/12 hidden md:block max-md:w-0">
       <div className="p-4">
         <div className=" bg-white shadow-md p-2 rounded-md mb-6">
           <span className="text-gray-600 ">Friend Requests</span>

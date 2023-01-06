@@ -22,7 +22,7 @@ const User = () => {
         <div className=' flex '>
           
           <LeftBar />
-          <div className="flex w-6/12 ml-4 mt-2">
+          <div className="flex w-6/12 ml-4 mt-2  max-md:w-full">
           <Outlet/>
           </div>
           <RightBar />
