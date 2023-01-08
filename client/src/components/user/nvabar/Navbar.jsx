@@ -66,8 +66,10 @@ const Navbar = () => {
         
           <NotificationsNoneOutlinedIcon />
           <div className="flex items-center gap-x-2">
+            <Link to={`/profile?id=1234`}>
             <AccountCircleOutlinedIcon />
             <span>{user.userName}</span>
+            </Link>
           </div>
         </div>
         <PostModal  visible={showModal} onClose={handleClose}/>

@@ -20,12 +20,12 @@ const Post = ({ post }) => {
           <div className="flex gap-5">
             <img
               className="h-10 w-10 object-cover rounded-full"
-              src={post.profilePic}
+              src='https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=1600'
               alt=""
             />
             <div className="flex flex-col">
-              <Link to={`/profile/${post.userId}`}>
-                <span className="font-bold	">{post.name}</span>
+              <Link to={`/profile?id=${post.userId._id}`}>
+                <span className="font-bold	">{post.userId.firstName}</span>
               </Link>
               <span className="text-xs">1 min ago </span>
             </div>
@@ -36,11 +36,11 @@ const Post = ({ post }) => {
         <div className="my-5">
           <img
             className="w-full object-cover max-h-96 mb-5"
-            src={post.img}
+            src={post.img[0]}
             alt=""
           />
         
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing e</p>
+          <p>{post.descripcion}</p>
         </div>
         {/* info */}
         <div className="flex items-center  gap-5">

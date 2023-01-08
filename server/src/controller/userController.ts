@@ -15,7 +15,6 @@ export const registerUser = async (req: Request, res: Response) => {
     const userExist = await userModel.findOne({ email });
     if (userExist) {
       return res
-        .status(401)
         .json({ message: "This user already exist", success: false });
     }
     const salt = await bcrypt.genSalt(10);
@@ -56,11 +55,17 @@ export const loginUser = async (req: Request, res: Response) => {
     console.log(user,"userdetailssss");
     
     if(!user){
-      return res.status(400).json({message:"Invalid Credentials",success:false})
+      return res.json({message:"Invalid Credentials",success:false})
+    }
+    if(!user.verified){
+      return res.json({message:"send a link to your mail,please confirm",success:false})
+    }
+    if(!user.isActive){
+      return res.json({message:"Blodked you",success:false})
     }
     const isMatch=await bcrypt.compare(password,user.password)
     if(!isMatch){
-      return res.status(400).json({message:"Invalid Credentials",success:false})
+      return res.json({message:"Invalid Credentials",success:false})
     }
      //generate token
 

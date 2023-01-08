@@ -4,6 +4,7 @@ import { adminApi } from '../../utils/apiCall';
 export const getAllUsers=async ()=>{
     try {
         const {data}=await adminApi.get('/get-all-users', {
+            withCredentials: true,
             headers: {
                Authorization: "Bearer " + localStorage.getItem("adminToken"),
             },
@@ -22,6 +23,7 @@ export const getAllUsers=async ()=>{
 export const changeUserStatus=async (userId)=>{
     try {
         const {data}=await adminApi.post('/change-user-status',{userId:userId},{
+            withCredentials: true,
             headers: {
                Authorization: "Bearer " + localStorage.getItem("adminToken"),
             },

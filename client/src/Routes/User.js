@@ -39,7 +39,7 @@ const User = () => {
       <Routes>
        <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}  >
           <Route path='' element={<Home/>}></Route>
-          <Route path='profile/:id' element={<Profile/>}></Route>
+          <Route path='profile' element={<Profile/>}></Route>
         </Route>
       </Routes>
       <Routes>

@@ -4,9 +4,12 @@ import PlaceOutlinedIcon from "@mui/icons-material/PlaceOutlined";
 import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import Posts from "../../components/user/posts/Posts";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 const Profile = () => {
+  const [searchParams]=useSearchParams()
+  const userId=searchParams.get('id')
+  console.log(userId,'lllllllllllllllll-----');
   return (
     <div>
       <div className="images w-full h-60 ">

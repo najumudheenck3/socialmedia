@@ -70,6 +70,7 @@
 import React, { useState } from "react";
 // import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import S3 from "aws-sdk/clients/s3";
+import { uploadImage } from "../../../api/user/PostRequest";
 
 const region = process.env.REACT_APP_REGION;
 const bucketName = process.env.REACT_APP_BUCKET_NAME;
@@ -86,6 +87,7 @@ export default function PostModal({ visible, onClose }) {
   const [files, setFile] = useState([]);
   const [message, setMessage] = useState();
   const [desscription, setDescription] = useState("");
+  const [imageLinks, setImageLinks] = useState([]);
   const handleFile = (e) => {
     setMessage("");
     let file = e.target.files;
@@ -107,24 +109,51 @@ export default function PostModal({ visible, onClose }) {
   const handleDescription = (e) => setDescription(e.target.value);
   console.log(desscription, "description");
 
-  const handlePostSubmit = (e) => {
+  const handlePostSubmit = async (e) => {
     e.preventDefault();
-    console.log(bucketName,region,accessKeyId,secretAccessKey);
-   const reader=new FileReader()
-   reader.readAsArrayBuffer(files[0])
-   reader.onload=async (e)=>{
-    const result=e.target.result
-    const uploadParams={
-      Bucket:bucketName,
-      Key:files[0].name,
-      Body:result
+    if (files.length > 0) {
+      files.forEach((file)=>{
+        const reader = new FileReader();
+        reader.readAsArrayBuffer(file);
+        reader.onload = async (e) => {
+          const result = e.target.result;
+          const uploadParams = {
+            Bucket: bucketName,
+            Key: Date.now() + file.name,
+            Body: result,
+          };
+          await s3
+            .upload(uploadParams)
+            .promise()
+            .then( (res) => {
+               setImageLinks((imageLinks) => [
+                ...imageLinks,
+                res.Location,
+              ]);
+            });
+        };
+      })
+      console.log(imageLinks, "imagelinks");
+      console.log(imageLinks.length, "lenthth");
+
+      const data = {
+        imageLinkss: imageLinks,
+        desscription: desscription,
+      };
+
+      if (data.imageLinkss.length > 0) {
+      const uploadSuccess=  await uploadImage(data);
+      console.log(uploadSuccess,'kkkkkkkkkk');
+      if(uploadSuccess){
+        onClose()
+      }else{
+        setMessage("eroorrr");
+      }
+      }
+   
+    } else {
+      setMessage("Please upload image");
     }
-    s3.upload(uploadParams)
-    .promise()
-    .then((res)=>{
-      console.log(res.Location);
-    })
-   }
   };
   return (
     <>
