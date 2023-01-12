@@ -3,18 +3,19 @@ import { useState } from "react";
 import { getAllPosts } from "../../../api/user/PostRequest";
 import Post from "../post/Post";
 
-const Posts = () => {
-  const [posts, setposts] = useState([]);
-  let allPosts;
-  useEffect(() => {
-    const getPosts = async () => {
-      allPosts = await getAllPosts();
-      setposts(allPosts);
-    };
-    getPosts();
-    console.log(allPosts,'allpost');
-  }, []);
-
+const Posts = ({posts}) => {
+  
+  // const [posts, setposts] = useState([]);
+  // let allPosts;
+  // useEffect(() => {
+  //   const getPosts = async () => {
+  //     allPosts = await getAllPosts();
+  //     setposts(allPosts);
+  //   };
+  //  getPosts();
+  // }, []);
+  // console.log(posts, "allpost");
+  
   //TEMPORARY
   // const posts = [
   //   {

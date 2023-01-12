@@ -31,6 +31,14 @@ export const getAllPosts=async ()=>{
             return data.data
         }
     } catch (error) {
-        
+        console.log(error);
     }
+}
+
+export const likePost=async()=>{
+try {
+    
+} catch (error) {
+    
+}
 }

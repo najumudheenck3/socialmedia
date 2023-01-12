@@ -11,7 +11,7 @@ module.exports = async (req: Request, res: Response, next: NextFunction) => {
     }
     if (!authHeader) {
       return res.status(401).send({
-        message: "auth failed",
+        message: "auth failaed",
         success: false,
       });
     }
@@ -21,8 +21,10 @@ module.exports = async (req: Request, res: Response, next: NextFunction) => {
       process.env.JWT_SECRET,
       (err: object | null, decoded: object | undefined) => {
         if (err) {
+          console.log(err);
+          
           return res.status(401).send({
-            message: "auth failed",
+            message: "auth faiaed",
             success: false,
           });
         } else {
@@ -35,7 +37,7 @@ module.exports = async (req: Request, res: Response, next: NextFunction) => {
     );
   } catch (error) {
     return res.status(401).send({
-      message: "auth failed",
+      message: "auth faileed",
       success: false,
     });
   }

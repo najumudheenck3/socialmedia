@@ -25,8 +25,8 @@ try {
 export const getPost=async(req:Request,res:Response)=>{
     try {
         const allPosts=await postModel.find().populate("userId")
-        console.log(allPosts,'allposts');
-        return res.json({data:allPosts, success: true });
+        // console.log(allPosts,'allposts');
+        return res.json({data:allPosts.reverse(), success: true });
     } catch (error) {
         
     }

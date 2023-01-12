@@ -22,7 +22,7 @@ export const logIn = async (formData) => {
     if (data?.success) {
       toast.success(data.message);
       localStorage.setItem("token", data.data)
-      localStorage.setItem("userName", data.user)
+      localStorage.setItem("userId", data.user)
       return true
     } else {
       console.log('fail annnuu');
