@@ -3,7 +3,9 @@ import { Request, Response, NextFunction } from "express";
 
 module.exports = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const authHeader = req.headers.authorization;
+  
+    const authHeader = req.headers.authorization; 
+    
     interface ITokenPayload {
       iat: number;
       exp: number;

@@ -35,9 +35,15 @@ export const getAllPosts=async ()=>{
     }
 }
 
-export const likePost=async()=>{
+export const likePost=async(postId)=>{
 try {
-    
+    console.log(postId,'posst idddd');
+    const {data}=await userApi.put(`/like-post/${postId}`,{},{
+        withCredentials: true,
+        headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+    })
 } catch (error) {
     
 }

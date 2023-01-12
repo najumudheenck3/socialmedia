@@ -46,13 +46,12 @@ export const registerUser = async (req: Request, res: Response) => {
 };
 
 export const loginUser = async (req: Request, res: Response) => {
-  console.log("logindata");
-  console.log(req.body);
+  // console.log("logindata");
+  // console.log(req.body);
   try {
     const{email,password}=req.body
 
     const user=await userModel.findOne({email})
-    console.log(user,"userdetailssss");
     
     if(!user){
       return res.json({message:"Invalid Credentials",success:false})
@@ -73,7 +72,8 @@ export const loginUser = async (req: Request, res: Response) => {
       //expire the token within
       expiresIn: "1d"
   })
-    res.status(200).json({message:"SignIn Successfully",success:true,data:token,user:user._id})
+  user.password=''
+    res.status(200).json({message:"SignIn Successfully",success:true,data:token,user:user})
   } catch (error) {
     
   }

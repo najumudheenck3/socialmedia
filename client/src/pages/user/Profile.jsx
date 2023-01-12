@@ -14,21 +14,12 @@ const Profile = () => {
   console.log(userId, "lllllllllllllllll-----");
   let allData;
   useEffect(() => {
-
     const getDeatil = async () => {
       allData = await getUserProfile(userId);
       setUserProfile(allData);
     };
     getDeatil();
- 
   }, []);
-  console.log(userProfile, "allpost");
-  console.log(new Date(userProfile[0]?.createdAt).toLocaleDateString(),'typeeeeee');
-  console.log(userProfile[0]?.createdAt,'created at pringing');
-
-  // time finding
-
-  
 
   return (
     <div>

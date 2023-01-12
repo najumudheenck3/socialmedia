@@ -7,13 +7,14 @@ import ChatBubbleOutlineRoundedIcon from "@mui/icons-material/ChatBubbleOutlineR
 import { Link } from "react-router-dom";
 import Comments from "../comments/Comments";
 import { likePost } from "../../../api/user/PostRequest";
+import { useSelector } from "react-redux";
 
 const Post = ({ post }) => {
+  const user = useSelector((state) => state.user.userDetails);
   const [commentOpen, setCommnetOpen] = useState(false);
   const [time,setTime]=useState('')
-  const [liked, setLiked] = useState(false);
-  const [likeCount,setLikeCount]=useState(15)
-  //temporary
+  const [liked, setLiked] = useState(post.likes.includes(user._id));
+  const [likeCount,setLikeCount]=useState(post.likes.length)
 //setposttime
 useEffect(()=>{
   var timeSince = function(date) {
@@ -63,9 +64,9 @@ setTime(timeSince(post.createdAt))
 },[time])
 
 //post liking
-const handleLikePost=async()=>{
+const handleLikePost=async(id)=>{
   try {
-    // await likePost(id)
+    await likePost(id)
     setLiked(!liked)
     setLikeCount((prevCount) => {
       if (liked) {
@@ -125,12 +126,12 @@ const handleLikePost=async()=>{
             {liked ? (
               <FavoriteOutlinedIcon
                 className="text-red-700"
-                onClick={() => handleLikePost()}
+                onClick={() => handleLikePost(post._id)}
               />
             ) : (
               <FavoriteBorderOutlinedIcon
                 className="text-red-700"
-                onClick={() => handleLikePost()}
+                onClick={() => handleLikePost(post._id)}
               />
             )}
             {likeCount} Likes
@@ -146,7 +147,7 @@ const handleLikePost=async()=>{
             <SendRoundedIcon className="-rotate-45" />
           </div>
         </div>
-        {commentOpen && <Comments />}
+        {commentOpen && <Comments postId={post._id} />}
       </div>
     </div>
   );

@@ -35,10 +35,7 @@ const Login = () => {
       dispatch(hideLoading());
       if (loginData) {
         dispatch(
-          userActions.setUserDetails({
-            name: localStorage.getItem("userName"),
-            token: localStorage.getItem("token"),
-          })
+          userActions.setUserDetails(loginData)
         );
         navigate("/");
       }

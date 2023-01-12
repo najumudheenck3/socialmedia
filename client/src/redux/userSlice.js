@@ -3,19 +3,17 @@ import {createSlice} from '@reduxjs/toolkit'
 const userSlice=createSlice({
     name:"user",
     initialState:{
-        userToken:null,
-        userName:null
+        userDetails:null,
     },
     reducers:{
         setUserDetails:(state,action)=>{
             console.log(action.payload,'peylodad data');
             const userData=action.payload;
-            state.userName=userData.name;
-            state.userToken=userData.token;
+            userData.password=undefined
+            state.userDetails=userData;
         },
         userDataClear:(state)=>{
-            state.userToken=null;
-            state.userName=null;
+            state.userDetails=null;
         }
     }
 })
