@@ -3,10 +3,11 @@ import { postComment } from "../../../api/user/CommentRequest";
 import useFetchComments from "../../../hooks/userFetchComments";
 import Moment from "react-moment";
 
-const Comments = ({ postId }) => {
+const Comments = ({ postId,setComm }) => {
   
   const [newComment, setNewComment] = useState("");
   const {comments,setComments} = useFetchComments(postId);
+  setComm(comments)
   console.log(comments, "ividyum kitttiii");
   const handlePostComment = async () => {
     if (newComment.trim().length < 0) return;
@@ -15,7 +16,7 @@ const Comments = ({ postId }) => {
       const response = await postComment(postId, newComment.trim());
       console.log(response,'the cinnebt');
       setComments([response,...comments])
-
+      setComm([response,...comments])
     } catch (error) {
       console.log(error);
     }
@@ -62,7 +63,8 @@ const Comments = ({ postId }) => {
           send
         </button>
       </div>
-      {comments.map((comment) => (
+    <div className="h-64 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-thumb-rounded-full  overflow-y-scroll ">
+    {comments.map((comment) => (
         <div className="my-4 flex justify-between gap-5">
           <img
             className="h-10 w-10 rounded-full object-cover"
@@ -70,7 +72,7 @@ const Comments = ({ postId }) => {
             alt=""
           />
           <div className="flex flex-col gap-1 items-start flex-1">
-            <span className="font-medium">{comment.firstName}</span>
+            <span className="text-sm font-bold">{comment.firstName}</span>
             <p>{comment.comment}</p>
           </div>
           <Moment className="self-center text-gray-500 text-xs" fromNow>
@@ -78,6 +80,7 @@ const Comments = ({ postId }) => {
           </Moment>
         </div>
       ))}
+    </div>
     </div>
   );
 };

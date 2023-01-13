@@ -15,6 +15,7 @@ const Post = ({ post }) => {
   const [time,setTime]=useState('')
   const [liked, setLiked] = useState(post.likes.includes(user._id));
   const [likeCount,setLikeCount]=useState(post.likes.length)
+  const [comm,setComm]=useState([])
 //setposttime
 useEffect(()=>{
   var timeSince = function(date) {
@@ -141,13 +142,13 @@ const handleLikePost=async(id)=>{
             onClick={() => setCommnetOpen(!commentOpen)}
           >
             <ChatBubbleOutlineRoundedIcon />
-            12 Comments
+            {comm.length?comm.length:""} Comments 
           </div>{" "}
           <div className="flex items-center gap-2 cursor-pointer text-sm">
             <SendRoundedIcon className="-rotate-45" />
           </div>
         </div>
-        {commentOpen && <Comments postId={post._id} />}
+        {commentOpen && <Comments setComm={setComm} postId={post._id} />}
       </div>
     </div>
   );
