@@ -11,6 +11,8 @@ import Verify from '../pages/user/Verify'
 import ProtectedRoute from '../components/user/routes/ProtectedRoute'
 import PublicRoute from '../components/user/routes/PublicRoute'
 import MobileFooter from '../components/user/mobilefooter/MobileFooter'
+import Messenger from '../pages/user/Messenger'
+import Notifications from '../components/user/notifications/Notifications'
 
 
 const User = () => {
@@ -21,7 +23,6 @@ const User = () => {
       <div className='bg-slate-200'>
         <Navbar />
         <div className=' flex '>
-          
           <LeftBar />
           <div className="flex w-6/12 ml-4 mt-2  max-md:w-full max-md:mx-2">
           <Outlet/>
@@ -40,6 +41,7 @@ const User = () => {
        <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}  >
           <Route path='' element={<Home/>}></Route>
           <Route path='profile' element={<Profile/>}></Route>
+          <Route path='notifications' element={<Notifications/>}></Route>
         </Route>
       </Routes>
       <Routes>
@@ -51,7 +53,9 @@ const User = () => {
       <Routes>
         <Route path="/verify" element={<Verify/>} />
       </Routes>
-      
+      <Routes>
+        <Route path="/messenger" element={<ProtectedRoute><Messenger /></ProtectedRoute>} />
+      </Routes>
     </>
   )
 }

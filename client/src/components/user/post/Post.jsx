@@ -4,7 +4,7 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import ChatBubbleOutlineRoundedIcon from "@mui/icons-material/ChatBubbleOutlineRounded";
-import { Link } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import Comments from "../comments/Comments";
 import { likePost } from "../../../api/user/PostRequest";
 import { useSelector } from "react-redux";
@@ -16,6 +16,7 @@ const Post = ({ post }) => {
   const [liked, setLiked] = useState(post.likes.includes(user._id));
   const [likeCount,setLikeCount]=useState(post.likes.length)
   const [comm,setComm]=useState([])
+  const navigate=useNavigate()
 //setposttime
 useEffect(()=>{
   var timeSince = function(date) {
@@ -80,6 +81,11 @@ const handleLikePost=async(id)=>{
     
   }
 }
+
+//go to profile page
+const toProfile=(userId)=>{
+  navigate('/profile',{state:{id:userId}});
+}
   return (
     <div className="post relative bg-white shadow-md rounded-lg">
       <div className="containner p-5">
@@ -92,9 +98,7 @@ const handleLikePost=async(id)=>{
               alt=""
             />
             <div className="flex flex-col">
-              <Link to={`/profile?id=${post.userId._id}`}>
-                <span className="font-bold	">{post.userId.firstName}</span>
-              </Link>
+                <span className="font-bold cursor-pointer" onClick={()=>{toProfile(post.userId._id)}}>{post.userId.firstName}</span>
               <span className="text-xs">{time} ago</span>
             </div>
           </div>
