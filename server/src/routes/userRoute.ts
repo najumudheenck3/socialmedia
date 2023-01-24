@@ -3,7 +3,7 @@ const router:Router = express.Router();
 import { loginUser, registerUser, verifyAccount } from "../controller/authController";
 import { getAllPosts, postComment } from "../controller/commentController";
 import { createPost, getPost, likePost } from "../controller/postController";
-import { getUserProfile } from "../controller/userController";
+import { getUserProfile, updateUserProfile } from "../controller/userController";
 const authMiddeleware=require('../middleware/authMiddleware')
 
 router.post('/register',registerUser)
@@ -23,6 +23,8 @@ router.put('/like-post/:postId',authMiddeleware,likePost)
 router.post('/post-comment/:postId',authMiddeleware,postComment)
 
 router.get('/all-comments/:postId',authMiddeleware,getAllPosts)
+
+router.put('/update-user-profile',authMiddeleware,updateUserProfile)
 
 
 module.exports = router;

@@ -5,8 +5,20 @@ export interface IUser extends Document {
   lastName: string;
   email: string;
   password: string;
+  phoneNumber:string;
   verified: boolean;
   isActive: boolean;
+  dob: Date;
+  address:string;
+  city: string;
+  country: string;
+  postalCode: number;
+  profileImage: string;
+  coverImage: string;
+  about: string;
+  requests: string[];
+  followers: string[];
+  following: string[];
 }
 
 const UserSchema: Schema = new Schema(
@@ -28,6 +40,9 @@ const UserSchema: Schema = new Schema(
       type: String,
       required: true,
     },
+    phoneNumber:{
+      type:Number
+    },
     verified: {
       type: Boolean,
       default: false,
@@ -36,6 +51,48 @@ const UserSchema: Schema = new Schema(
       type: Boolean,
       default: true,
     },
+    dob: {
+      type: Date,
+    },
+    address:{
+      type:String
+    },
+    city: {
+      type: String,
+    },
+    country: {
+      type: String,
+    },
+    postalCode: {
+      type: Number,
+    },
+    profileImage: {
+      type: String,
+    },
+    coverImage: {
+      type: String,
+    },
+    about: {
+      type: String,
+    },
+    requests: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "user",
+      },
+    ],
+    followers: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "user",
+      },
+    ],
+    following: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "user",
+      },
+    ],
   },
   {
     timestamps: true,

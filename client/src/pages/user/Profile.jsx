@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
 import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
-import PlaceOutlinedIcon from "@mui/icons-material/PlaceOutlined";
-import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import Posts from "../../components/user/posts/Posts";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getUserProfile } from "../../api/user/userRequest";
 import { useSelector } from "react-redux";
 
 const Profile = () => {
   const user = useSelector((state) => state.user);
   const [userProfile, setUserProfile] = useState([]);
+  const navigate=useNavigate()
   const location = useLocation();
   const userId = location.state.id
   console.log(userId, "lllllllllllllllll-----");
@@ -30,28 +29,27 @@ const Profile = () => {
   }
 
   return (
-    <div>
+    <div className=" w-full">
       <div className="images w-full h-60 ">
         <img
           className="w-full h-full object-cover relative"
-          src="https://blog.marketo.com/content/uploads/2014/02/facebook-cover-photo.jpg"
+          src={userProfile[0]?.userId.coverImage
+            ?userProfile[0]?.userId.coverImage
+          :"https://blog.marketo.com/content/uploads/2014/02/facebook-cover-photo.jpg"}
           alt=""
         />
         <img
           className="absolute right-0  left-0 m-auto top-52 w-44 h-44 rounded-full object-cover"
-          src="https://wallpaperaccess.com/full/2213424.jpg"
+          src={userProfile[0]?.userId.profileImage
+            ?userProfile[0]?.userId.profileImage
+          :"https://wallpaperaccess.com/full/2213424.jpg"}
           alt=""
         />
       </div>
       <div className="px-5 py-4">
         <div className="userIfo h-52 shadow-md  rounded-lg p-8 flex max-md:flex-col items-center justify-between mb-5 bg-white">
           <div className="lefttt flex-1 flex gap-2 max-md:hidden">
-            <Link>
-              <EmailRoundedIcon fontSize="large" />
-            </Link>
-            <Link>
-              <EmailRoundedIcon fontSize="large" />
-            </Link>
+           
           </div>
           <div className="centerere flex-1 flex mt-6 flex-col items-center gap-2">
             <span className="text-xl font-medium">
@@ -77,7 +75,7 @@ const Profile = () => {
               </button>
             </div>}
             {userProf && <div className="flex gap-x-4">
-              <button className="bg-cyan-800 hover:bg-cyan-900 text-sm text-white font-bold  h-6 w-32 border border-cyan-900 rounded">
+              <button className="bg-cyan-800 hover:bg-cyan-900 text-sm text-white font-bold  h-6 w-32 border border-cyan-900 rounded" onClick={()=>navigate('/edit-profile')}>
                 Edit Profile
               </button>
               <button className="bg-cyan-800 hover:bg-cyan-900 text-sm text-white font-bold  h-6 w-32 border border-cyan-900 rounded">
