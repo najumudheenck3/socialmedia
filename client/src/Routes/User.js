@@ -14,6 +14,7 @@ import MobileFooter from '../components/user/mobilefooter/MobileFooter'
 import Messenger from '../pages/user/Messenger'
 import Notifications from '../components/user/notifications/Notifications'
 import EditProfile from '../components/user/editProfile/EditProfile'
+import Request from '../components/user/request/Request'
 
 
 const User = () => {
@@ -44,6 +45,7 @@ const User = () => {
           <Route path='profile' element={<Profile/>}></Route>
           <Route path='notifications' element={<Notifications/>}></Route>
           <Route path='edit-profile' element={<EditProfile/>}></Route>
+          <Route path='friend-requests' element={<Request/>}></Route>
         </Route>
       </Routes>
       <Routes>

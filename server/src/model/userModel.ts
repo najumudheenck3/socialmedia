@@ -4,12 +4,13 @@ export interface IUser extends Document {
   firstName: string;
   lastName: string;
   email: string;
+  private: boolean;
   password: string;
-  phoneNumber:string;
+  phoneNumber: string;
   verified: boolean;
   isActive: boolean;
   dob: Date;
-  address:string;
+  address: string;
   city: string;
   country: string;
   postalCode: number;
@@ -40,8 +41,12 @@ const UserSchema: Schema = new Schema(
       type: String,
       required: true,
     },
-    phoneNumber:{
-      type:Number
+    phoneNumber: {
+      type: Number,
+    },
+    private: {
+      type: Boolean,
+      default: false,
     },
     verified: {
       type: Boolean,
@@ -54,8 +59,8 @@ const UserSchema: Schema = new Schema(
     dob: {
       type: Date,
     },
-    address:{
-      type:String
+    address: {
+      type: String,
     },
     city: {
       type: String,

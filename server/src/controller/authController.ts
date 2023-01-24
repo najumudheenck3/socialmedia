@@ -112,8 +112,9 @@ export const verifyAccount = async (req: Request, res: Response) => {
       success: false,
     });
   }
+console.log(user._id,'ibidyanoo thettunnat');
 
-  await userModel.findByIdAndUpdate({ _id: user._id, verified: true });
+  await userModel.findByIdAndUpdate(user._id, {verified: true });
   await tokenModel.findByIdAndRemove(userToken._id);
   return res.json({ message: "email verified sucessfully", success: true });
  } catch (error) {

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserProfile, updateUserProfile, uploadImage } from "../../../api/user/userRequest";
+import { hideLoading, showLoading } from "../../../redux/alertSlice";
 import { userActions } from "../../../redux/userSlice";
 
 const EditProfile = () => {
@@ -69,7 +70,9 @@ const EditProfile = () => {
           userInfo.profileImage=profileImageLink
           setProfileImg(null)
         }
+        dispatch(showLoading())
         const response=await updateUserProfile(userInfo)
+        dispatch(hideLoading())
         if(response){
           dispatch(userActions.setUserDetails(userInfo[0].userId))
         }

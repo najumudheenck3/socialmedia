@@ -71,6 +71,9 @@ import React, { useState } from "react";
 // import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import S3 from "aws-sdk/clients/s3";
 import { uploadImage } from "../../../api/user/PostRequest";
+import { useDispatch } from "react-redux";
+import { AddPostActions } from "../../../redux/postSlice";
+import { hideLoading, showLoading } from "../../../redux/alertSlice";
 
 const region = process.env.REACT_APP_REGION;
 const bucketName = process.env.REACT_APP_BUCKET_NAME;
@@ -84,6 +87,7 @@ const s3 = new S3({
 });
 
 export default function PostModal({ visible, onClose }) {
+  const dispatch=useDispatch()
   const [files, setFile] = useState([]);
   const [message, setMessage] = useState();
   const [desscription, setDescription] = useState("");
@@ -142,10 +146,12 @@ export default function PostModal({ visible, onClose }) {
       };
 
       if (data.imageLinkss.length > 0) {
+        dispatch(showLoading())
       const uploadSuccess=  await uploadImage(data);
-      console.log(uploadSuccess,'kkkkkkkkkk');
+     dispatch(hideLoading())
       if(uploadSuccess){
         onClose()
+        dispatch(AddPostActions.postAdd())
       }else{
         setMessage("eroorrr");
       }
