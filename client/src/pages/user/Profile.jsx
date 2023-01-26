@@ -10,6 +10,7 @@ import Private from "../../components/user/private/Private";
 import { followUser } from "../../api/user/FollowRequest";
 import Followers from "../../components/user/followers/Followers";
 import Following from "../../components/user/following/Following";
+import SavedPost from "../../components/user/savedPost/SavedPost";
 
 const Profile = () => {
   const postUpdateRefresh = useSelector((state) => state.addPost.AddPost);
@@ -153,7 +154,9 @@ console.log( userProfile[0]?.userId.requests.includes(user?.userDetails._id),' u
                 >
                   Edit Profile
                 </button>
-                <button className="bg-cyan-800 hover:bg-cyan-900 text-sm text-white font-bold  h-6 w-32 border border-cyan-900 rounded">
+                <button className="bg-cyan-800 hover:bg-cyan-900 text-sm text-white font-bold  h-6 w-32 border border-cyan-900 rounded" 
+                onClick={()=>{setOption("saved-post")}}
+                >
                  saved post
                 </button>
               </div>
@@ -177,6 +180,9 @@ console.log( userProfile[0]?.userId.requests.includes(user?.userDetails._id),' u
         }
         {
         (userProfile[0]?.userId.private && !follow && !userProf)  && <Private />
+       }
+       {
+        option ==="saved-post" && <SavedPost/>
        }
       </div>
     </div>

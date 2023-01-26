@@ -169,7 +169,6 @@ export const getAllFollowers = async (req: Request, res: Response) => {
         path: "followers",
         select: { firstName: 1, lastName: 1, profileImage: 1 },
       });
-      console.log(user,'userrrrrrrrrrrrrrrrrrrrrr');
 
       res.json({ message: "followers fetched successfully", data: user?.followers ,success:true});
       

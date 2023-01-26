@@ -20,6 +20,7 @@ export interface IUser extends Document {
   requests: string[];
   followers: string[];
   following: string[];
+  savedPost: string[];
 }
 
 const UserSchema: Schema = new Schema(
@@ -98,6 +99,12 @@ const UserSchema: Schema = new Schema(
         ref: "user",
       },
     ],
+    savedPost:[
+      {
+        type: Schema.Types.ObjectId,
+        ref: "post",
+      }
+    ]
   },
   {
     timestamps: true,

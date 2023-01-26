@@ -48,3 +48,33 @@ try {
     
 }
 }
+
+export const savePost=async(postId)=>{
+    try {
+        const {data}=await userApi.put('/save-post',postId,{
+            withCredentials: true,
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+        })
+        return data.success
+    } catch (error) {
+        
+    }
+}
+
+export const getAllSavedPost=async()=>{
+    try {
+        const {data}=await userApi.get('/all-save-post',{
+            withCredentials: true,
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+        })
+        if(data.success){
+            return data.data
+        }
+    } catch (error) {
+        
+    }
+}

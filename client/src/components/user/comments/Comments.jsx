@@ -3,6 +3,8 @@ import { postComment } from "../../../api/user/CommentRequest";
 import useFetchComments from "../../../hooks/userFetchComments";
 import Moment from "react-moment";
 import InputEmoji from "react-input-emoji";
+import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 
 const Comments = ({ postId, setComm }) => {
   const [newComment, setNewComment] = useState("");
@@ -22,25 +24,7 @@ const Comments = ({ postId, setComm }) => {
     }
     setNewComment("");
   };
-  //Temporary
-  const commennts = [
-    {
-      id: 1,
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem nequeaspernatur ullam aperiam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem nequeaspernatur ullam aperiam",
-      name: "John Doe",
-      userId: 1,
-      profilePicture:
-        "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    },
-    {
-      id: 2,
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem nequeaspernatur ullam aperiam",
-      name: "Jane Doe",
-      userId: 2,
-      profilePicture:
-        "https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    },
-  ];
+  
   return (
     <div>
       <div className="flex items-center justify-between gap-5 my-5">
@@ -82,11 +66,17 @@ const Comments = ({ postId, setComm }) => {
             <div className="flex flex-col gap-1 items-start flex-1">
               <span className="text-sm font-bold">{comment.firstName}</span>
               <p>{comment.comment}</p>
+              <div className="flex gap-x-4 items-center">
+             <FavoriteBorderOutlinedIcon fontSize="small" className="text-red-700 cursor-pointer"/> 
+             <h1 className="text-gray-700 cursor-pointer">Reply</h1>
+            </div>
             </div>
             <Moment className="self-center text-gray-500 text-xs" fromNow>
               {comment.createdAt}
             </Moment>
+           
           </div>
+          
         ))}
       </div>
     </div>

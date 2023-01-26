@@ -2,8 +2,6 @@
 import Post from "../post/Post";
 
 const Posts = ({posts}) => {
-  
- 
 
   return (
     <div className="flex flex-col gap-12">
