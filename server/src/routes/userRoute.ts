@@ -3,7 +3,7 @@ const router:Router = express.Router();
 import { loginUser, registerUser, verifyAccount } from "../controller/authController";
 import { getAllPosts, postComment } from "../controller/commentController";
 import { createPost, getPost, likePost } from "../controller/postController";
-import { followUser, getUserProfile, updateUserProfile } from "../controller/userController";
+import { acceptRequest, deleteRequest, followUser, getAllFollowers, getAllFollowing, getAllRequest, getUserProfile, updateUserProfile } from "../controller/userController";
 const authMiddeleware=require('../middleware/authMiddleware')
 
 router.post('/register',registerUser)
@@ -28,5 +28,14 @@ router.put('/update-user-profile',authMiddeleware,updateUserProfile)
 
 router.put('/follow-user',authMiddeleware,followUser)
 
+router.get('/get-all-request',authMiddeleware,getAllRequest)
+
+router.put('/accept-request',authMiddeleware,acceptRequest)
+
+router.delete('/delete-request/:deleteId',authMiddeleware,deleteRequest)
+
+router.get('/get-all-followers/:userId',authMiddeleware,getAllFollowers)
+
+router.get('/get-all-following/:userId',authMiddeleware,getAllFollowing)
 
 module.exports = router;

@@ -11,7 +11,7 @@ const port: Number = 5000;
 app.use(express.json());
 app.use(CORS({
     origin: ['http://localhost:3000'],
-    methods: ['GET', 'POST','PUT'],
+    methods: ['GET', 'POST','PUT','DELETE'],
     credentials: true,
     exposedHeaders: ['Content-Length', 'X-Foo', 'X-Bar']},
     ))

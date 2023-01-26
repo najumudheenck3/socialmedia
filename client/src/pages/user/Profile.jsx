@@ -8,10 +8,13 @@ import { getUserProfile } from "../../api/user/userRequest";
 import { useSelector } from "react-redux";
 import Private from "../../components/user/private/Private";
 import { followUser } from "../../api/user/FollowRequest";
+import Followers from "../../components/user/followers/Followers";
+import Following from "../../components/user/following/Following";
 
 const Profile = () => {
   const postUpdateRefresh = useSelector((state) => state.addPost.AddPost);
   const user = useSelector((state) => state.user);
+  const [option,setOption]=useState("post")
   const [follow, setFollowed] = useState(false)
   const [requested, setRequested] = useState(false);
   const [userProfile, setUserProfile] = useState([]);
@@ -92,15 +95,15 @@ console.log( userProfile[0]?.userId.requests.includes(user?.userDetails._id),' u
             </span>
             <div className="infooo flex items-center justify-around w-full">
               <div className="flex items-center gap-2">
-                <span className="text-sm">{userProfile.length} Posts</span>
+                <span className="text-sm cursor-pointer" onClick={()=>{setOption("post")}}>{userProfile.length} Posts</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-sm">
+                <span className="text-sm cursor-pointer" onClick={()=>{setOption("followers")}}>
                   {userProfile[0]?.userId.followers.length} followers
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-sm">
+                <span className="text-sm cursor-pointer" onClick={()=>{setOption("following")}} >
                   {userProfile[0]?.userId.following.length} following
                 </span>
               </div>
@@ -151,7 +154,7 @@ console.log( userProfile[0]?.userId.requests.includes(user?.userDetails._id),' u
                   Edit Profile
                 </button>
                 <button className="bg-cyan-800 hover:bg-cyan-900 text-sm text-white font-bold  h-6 w-32 border border-cyan-900 rounded">
-                  Add tools
+                 saved post
                 </button>
               </div>
             )}
@@ -162,17 +165,19 @@ console.log( userProfile[0]?.userId.requests.includes(user?.userDetails._id),' u
             <MoreVertOutlinedIcon />
           </div>
         </div>
-        {/* <Posts posts={userProfile} /> */}
-        {userProf ? (
-          <Posts posts={userProfile} />
-        ) : userProfile[0]?.userId.private ? (
-          <Private />
-        ) : (
-          <Posts posts={userProfile} />
-        )}
-        {/* {userProf && <Posts posts={userProfile} />}
-       {!userProfile[0]?.userId.private && <Posts posts={userProfile} />}
-       {!userProf &&userProfile[0]?.userId.private && <Private/>} */}
+      
+       {
+        (!userProfile[0]?.userId.private || follow || userProf) && option==="post" &&  <Posts posts={userProfile} />
+       }
+        {
+         (!userProfile[0]?.userId.private || follow || userProf) && option==="followers" && <Followers setOption={setOption} userId={userProfile[0]?.userId._id}/>
+        }
+        {
+         (!userProfile[0]?.userId.private || follow || userProf) &&  option==="following" && <Following setOption={setOption} userId={userProfile[0]?.userId._id}/>
+        }
+        {
+        (userProfile[0]?.userId.private && !follow && !userProf)  && <Private />
+       }
       </div>
     </div>
   );
