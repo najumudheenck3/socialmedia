@@ -23,7 +23,7 @@ export const postComment = async (req: Request, res: Response) => {
 
     await userModel.populate(postComment, {
       path: "userId",
-      select: { firstName: 1,lastName:1 },
+      select: { firstName: 1,lastName:1,profileImage:1 },
     });
     console.log(postComment, "postcomment aafter populate");
   
@@ -33,7 +33,6 @@ export const postComment = async (req: Request, res: Response) => {
 };
 
 export const getAllPosts = async (req: Request, res: Response) => {
-  console.log(req.params, "endayaluym iviada etheeknn backinokkam");
   const postId = req.params.postId;
   try {
     const comments = await commentModel.aggregate([
@@ -65,6 +64,7 @@ export const getAllPosts = async (req: Request, res: Response) => {
           createdAt: 1,
           "author.firstName": 1,
           "author.lastName": 1,
+          "author.profileImage":1,
         },
       },
       {
@@ -85,7 +85,6 @@ export const getAllPosts = async (req: Request, res: Response) => {
         },
       },
     ]);
-    console.log(comments, "allpost comments");
     return res.json({message:"comments fetched successfully", comments: comments, success: true });
   } catch (error) {
     console.log(error);
@@ -113,7 +112,7 @@ export const postCommentReply=async(req: Request, res: Response)=>{
 
     await userModel.populate(replyComment, {
       path: "userId",
-      select: { firstName: 1,lastName:1 },
+      select: { firstName: 1,lastName:1 ,profileImage:1},
     });
     console.log(replyComment, "postcomment aafter populate");
   
@@ -126,7 +125,7 @@ export const postCommentReply=async(req: Request, res: Response)=>{
 }
 
 export const getAllCommentReply=async(req: Request, res: Response)=>{
-  console.log(req.params, "endayaluym iviada etheeknn backinokkam");
+  console.log(req.params, "endayaluym iviada etheeknn reply commetybackinokkam");
   const commentId = req.params.commentId;
   try {
     const commentsReplies = await commentReplyModel.aggregate([
@@ -158,6 +157,7 @@ export const getAllCommentReply=async(req: Request, res: Response)=>{
           createdAt: 1,
           "author.firstName": 1,
           "author.lastName": 1,
+          "author.profileImage":1,
         },
       },
       {
@@ -184,3 +184,25 @@ export const getAllCommentReply=async(req: Request, res: Response)=>{
     console.log(error);
   }
 } 
+
+export const likeComment=async(req: Request, res: Response)=>{
+  const id = req.params.commentId;
+  const userId = req.body.userIdd;
+  try {
+    const comment = await commentModel.findById(id);
+    if (!comment) {
+      return res.json({ message: "post not found", success: false });
+    }
+
+    if (!comment.likes.includes(userId)) {
+      console.log(comment, "ithall likepost");
+      await comment.updateOne({ $push: { likes: userId } });
+      return res.json({ message: "post liked successfully", success: true });
+    } else {
+      await comment.updateOne({ $pull: { likes: userId } });
+      return res.json({ message: "post disliked successfully", success: true });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}

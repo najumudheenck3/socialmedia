@@ -49,7 +49,7 @@ const Comments = ({ postId, setComm }) => {
       </div>
       <div className="h-64 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-thumb-rounded-full  overflow-y-scroll ">
         {comments.map((comment) => (
-          <Comment comment={comment} />
+          <Comment comment={comment} key={comment._id}/>
         ))}
       </div>
     </div>

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
-import { adminActions } from '../../../redux/adminSlice'
+import { adminActions } from '../redux/adminSlice'
 const ProtectedRouteAdmin = (props) => {
     const dispatch = useDispatch()
     // const navigate=useNavigate()

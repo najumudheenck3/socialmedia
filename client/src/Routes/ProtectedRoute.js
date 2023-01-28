@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
-import { getUserProfile } from '../../../api/user/userRequest'
-import { userActions } from '../../../redux/userSlice'
+import { getUserProfile } from '../api/user/userRequest'
+import { userActions } from '../redux/userSlice'
 
 const ProtectedRoute = (props) => {
     const dispatch = useDispatch()

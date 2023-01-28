@@ -1,7 +1,7 @@
 import  express, { Router }  from "express";
 const router:Router = express.Router();
 import { loginUser, registerUser, verifyAccount } from "../controller/authController";
-import { getAllPosts, postComment, postCommentReply } from "../controller/commentController";
+import { getAllCommentReply, getAllPosts, likeComment, postComment, postCommentReply } from "../controller/commentController";
 import {  getConversation, postNewConversation } from "../controller/conversationController";
 import { addMessage, getMessage } from "../controller/messageContoller";
 import { createPost, getAllSAvedPost, getPost, likePost, savePost } from "../controller/postController";
@@ -55,6 +55,10 @@ router.get('/get-message/:conversationId',authMiddeleware,getMessage)
 router.get('/get-chat-user/:friendId',authMiddeleware,getChatUser)
 
 router.post('/post-reply-comment/:commentId',authMiddeleware,postCommentReply)
+
+router.get('/all-comment-replies/:commentId',authMiddeleware,getAllCommentReply)
+
+router.put('/like-comment/:commentId',authMiddeleware,likeComment)
 
 
 module.exports = router;
