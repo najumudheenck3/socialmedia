@@ -7,6 +7,7 @@ import CommentsReply from "../commentsReply/CommentsReply";
 const Comment = ({ comment }) => {
   const [replyCommentOpen, setReplyCommnetOpen] = useState(false);
   const [likeComment, setLikeSomment] = useState(false);
+  
   return (
     <>
       <div className="my-4 flex justify-between gap-5">
@@ -44,7 +45,7 @@ const Comment = ({ comment }) => {
           {comment?.createdAt}
         </Moment>
       </div>
-      {replyCommentOpen && <CommentsReply />}
+      {replyCommentOpen && <CommentsReply commentId={comment?._id}/>}
     </>
   );
 };

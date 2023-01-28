@@ -3,6 +3,7 @@ import commentModel from "../model/commentModel";
 import postModel from "../model/postModel";
 import userModel from "../model/userModel";
 import mongoose from "mongoose";
+import commentReplyModel from "../model/commentReplyModel";
 
 export const postComment = async (req: Request, res: Response) => {
   const comment = req.body.comment;
@@ -25,15 +26,7 @@ export const postComment = async (req: Request, res: Response) => {
       select: { firstName: 1,lastName:1 },
     });
     console.log(postComment, "postcomment aafter populate");
-    // const theComment={
-    //     ...postComment,
-    //     userId:postComment.userId._id,
-    //     firstName:postComment?.userId.firstName,
-    //     lastName:postComment.userId.lastName
-
-    // }
-    // console.log(theComment,'the cinnebt');
-
+  
     res.json({message:'commented posted successfully',success:true,comment:postComment})
     
   } catch (error) {}
@@ -100,3 +93,94 @@ export const getAllPosts = async (req: Request, res: Response) => {
     
   }
 };
+
+export const postCommentReply=async(req: Request, res: Response)=>{
+  console.log(req.body,req.params,'post comment rep;ay');
+  const comment = req.body.replyComment;
+  const userId = req.body.userIdd;
+  const commentId = req.params.commentId;
+  try {
+    const currentComment = await commentModel.findById(commentId);
+    if (!currentComment) {
+      return res.json({ message: "comment not found", success: false });
+    }
+    const replyComment = new commentReplyModel({
+      userId,
+      commentId,
+      comment,
+    });
+    await replyComment.save();
+
+    await userModel.populate(replyComment, {
+      path: "userId",
+      select: { firstName: 1,lastName:1 },
+    });
+    console.log(replyComment, "postcomment aafter populate");
+  
+    res.json({message:'comment reply posted successfully',success:true,replyComment:replyComment})
+    
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
+
+export const getAllCommentReply=async(req: Request, res: Response)=>{
+  console.log(req.params, "endayaluym iviada etheeknn backinokkam");
+  const commentId = req.params.commentId;
+  try {
+    const commentsReplies = await commentReplyModel.aggregate([
+      {
+        $match: {
+          commentId: new mongoose.Types.ObjectId(commentId),
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "userId",
+          foreignField: "_id",
+          as: "author",
+        },
+      },
+      {
+        $unwind: {
+          path: "$author",
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          userId: 1,
+          commentId: 1,
+          comment: 1,
+          likes: 1,
+          createdAt: 1,
+          "author.firstName": 1,
+          "author.lastName": 1,
+        },
+      },
+      {
+        $replaceRoot: {
+          newRoot: {
+            $mergeObjects: ["$$ROOT", "$author"],
+          },
+        },
+      },
+      {
+        $project: {
+          author: 0,
+        },
+      },
+      {
+        $sort: {
+          createdAt: -1,
+        },
+      },
+    ]);
+    console.log(commentsReplies, "allpost comments");
+    return res.json({message:"commentreplies fetched successfully", commentsReplies: commentsReplies, success: true });
+  } catch (error) {
+    console.log(error);
+  }
+} 

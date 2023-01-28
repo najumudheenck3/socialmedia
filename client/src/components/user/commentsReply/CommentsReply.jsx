@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import Moment from "react-moment";
 import InputEmoji from "react-input-emoji";
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
+import { postCommentReply } from "../../../api/user/CommentRequest";
 
-const CommentsReply = () => {
+const CommentsReply = ({commentId}) => {
+  const [newCommentReply, setNewCommentReply] = useState("");
+console.log(commentId,'comment idddd');
+  const handlePostCommentReply = async () => {
+    if (newCommentReply.trim().length < 0) return;
+    console.log(newCommentReply.trim(),'reply commentsss');
+    try {
+      const response = await postCommentReply(commentId, newCommentReply.trim());
+      // console.log(response, "the cinnebt");
+      // setComments([response, ...comments]);
+      // setComm([response, ...comments]);
+    } catch (error) {
+      console.log(error);
+    }
+    setNewCommentReply("");
+  };
+
   return (
     <div className=" w-10/12 ml-14">
       <div className="flex items-center justify-between gap-5 my-5">
@@ -15,13 +32,13 @@ const CommentsReply = () => {
 
         <InputEmoji
           className="w-full p-2 "
-        //   value={newComment}
+          value={newCommentReply}
           cleanOnEnter
-        //   onChange={(e) => setNewComment(e)}
-        //   onEnter={handlePostComment}
+          onChange={(e) => setNewCommentReply(e)}
+          onEnter={handlePostCommentReply}
           placeholder="Type a message"
         />
-       <SendOutlinedIcon className="text-specclr cursor-pointer"/>
+       <SendOutlinedIcon className="text-specclr cursor-pointer" onClick={handlePostCommentReply}/>
       </div>
       <div className="h-40 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-thumb-rounded-full  overflow-y-scroll ">
         {/* {comments.map((comment) => ( */}
