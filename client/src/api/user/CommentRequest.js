@@ -40,3 +40,26 @@ export const fetchComments=async(postId)=>{
         
     }
 }
+
+export const postCommentReply=async(commentId,replyComment)=>{
+    try {
+        const {data}=await userApi.post(`/post-reply-comment/${commentId}`,{replyComment},{
+            withCredentials: true,
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+        })
+        // if(data.success){
+        //     const theComment={
+        //         ...data.comment,
+        //         userId:data.comment.userId._id,
+        //         firstName:data.comment.userId.firstName,
+        //         lastName:data.comment.userId.lastName
+        
+        //     }
+        //     return theComment
+        // } 
+    } catch (error) {
+        
+    }
+}

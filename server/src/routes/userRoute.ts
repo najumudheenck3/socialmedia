@@ -2,8 +2,10 @@ import  express, { Router }  from "express";
 const router:Router = express.Router();
 import { loginUser, registerUser, verifyAccount } from "../controller/authController";
 import { getAllPosts, postComment } from "../controller/commentController";
+import {  getConversation, postNewConversation } from "../controller/conversationController";
+import { addMessage, getMessage } from "../controller/messageContoller";
 import { createPost, getAllSAvedPost, getPost, likePost, savePost } from "../controller/postController";
-import { acceptRequest, deleteRequest, followUser, getAllFollowers, getAllFollowing, getAllRequest, getUserProfile, updateUserProfile } from "../controller/userController";
+import { acceptRequest, deleteRequest, followUser, getAllFollowers, getAllFollowing, getAllRequest, getChatUser, getUserProfile, updateUserProfile } from "../controller/userController";
 const authMiddeleware=require('../middleware/authMiddleware')
 
 router.post('/register',registerUser)
@@ -41,5 +43,15 @@ router.get('/get-all-following/:userId',authMiddeleware,getAllFollowing)
 router.put('/save-post',authMiddeleware,savePost)
 
 router.get('/all-save-post',authMiddeleware,getAllSAvedPost)
+
+router.post('/new-conversation',authMiddeleware,postNewConversation)
+
+router.get('/get-conversation/:userId',authMiddeleware,getConversation)
+
+router.post('/add-message',authMiddeleware,addMessage)
+
+router.get('/get-message/:conversationId',authMiddeleware,getMessage)
+
+router.get('/get-chat-user/:friendId',authMiddeleware,getChatUser)
 
 module.exports = router;

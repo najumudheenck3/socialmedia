@@ -1,7 +1,7 @@
 import React from "react";
 import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import MessageOutlinedIcon from "@mui/icons-material/MessageOutlined";
+import FeaturedVideoOutlinedIcon from '@mui/icons-material/FeaturedVideoOutlined';
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import { Link } from "react-router-dom";
@@ -24,8 +24,8 @@ const LeftBar = () => {
           </div>
        
           <div className="flex items-center gap-x-3  hover:bg-cyan-900 h-12 p-2 rounded">
-            <MessageOutlinedIcon/>
-            <span>Messages</span>
+            <FeaturedVideoOutlinedIcon/>
+            <span>Advertisement</span>
           </div>
           <div className="flex items-center gap-x-3  hover:bg-cyan-900 h-12 p-2 rounded">
             <NotificationsNoneOutlinedIcon/>

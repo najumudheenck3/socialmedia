@@ -22,11 +22,12 @@ const ProtectedRoute = (props) => {
             getAddUserInfo()
 
         }
-    })
+    },[dispatch,user.userDetails])
     console.log(user.userDetails, 'kkkk');
     if (localStorage.getItem('token') && user.userDetails) {
         console.log('ullilund');
         return props.children
+    
     } else {
         console.log('ividae varunnund');
         return <Navigate to='/login' />

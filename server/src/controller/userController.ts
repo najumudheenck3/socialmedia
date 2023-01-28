@@ -190,3 +190,20 @@ export const getAllFollowing=async(req: Request, res: Response)=>{
         console.log(error);
     }
 }
+
+export const getChatUser=async(req: Request, res: Response)=>{
+  console.log(req.params.friendId,'numma iviada ndallooo');
+  const userId=req.params.friendId
+  try {
+    const user=await userModel.findOne({_id:userId},'-password')
+  console.log(user,'numma iviada ndallooo');
+    if(user){
+      res.json({ message: "chat user fetched successfully", data: user ,success:true});
+    }else{
+      res.json({ message: "something wrong" ,success:false});
+    }
+    
+  } catch (error) {
+    
+  }
+}

@@ -1,12 +1,31 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
+import { getChatUser } from "../../../api/user/ChatRequest";
 
-const Conversations = () => {
+const Conversations = ({ conversation, currentUser }) => {
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const friendId = conversation?.members?.find(
+      (m) => m !== currentUser?.userDetails?._id
+    );
+    const getUser = async () => {
+      const response = await getChatUser(friendId);
+      if (response) {
+        setUser(response);
+      }
+    };
+    getUser();
+  }, [conversation, currentUser]);
+
   return (
-    <div className='flex items-center p-2 gap-x-4 cursor-pointer hover:bg-slate-200 mt-4'>
-        <img className='h-10 w-10 rounded-full object-cover ' src="https://d1shwc4yijf729.cloudfront.net/resized/1280x640/assets/2021/07/08/pexels-giftpunditscom-1310522_25_60e67d243d570.webp" alt="" />
-        <span className='font-medium'>hiba daliya</span>
+    <div className="flex items-center p-2 gap-x-4 cursor-pointer hover:bg-slate-200 mt-4">
+      <img
+        className="h-10 w-10 rounded-full object-cover "
+        src={user?.profileImage?user?.profileImage:"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
+        alt=""
+      />
+      <span className="font-medium">{user?.firstName} {user?.lastName}</span>
     </div>
-  )
-}
+  );
+};
 
-export default Conversations
+export default Conversations;

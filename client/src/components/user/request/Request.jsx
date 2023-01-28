@@ -63,7 +63,7 @@ const Request = () => {
           </div>
         )}
 
-        <div className="shadow:lg shadow-gray-300 rounded-md p-2 mb-5   mt-6 ">
+        {/* <div className="shadow:lg shadow-gray-300 rounded-md p-2 mb-5   mt-6 ">
           <h2 className="text-xl font-bold mb-5">People follows you</h2>
           <div className="flex gap-2 flex-wrap justify-center">
             <RequestCard />
@@ -75,7 +75,7 @@ const Request = () => {
             <RequestCard />
             <RequestCard />
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );
