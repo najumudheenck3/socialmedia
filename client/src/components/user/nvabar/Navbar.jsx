@@ -37,9 +37,6 @@ const Navbar = () => {
             <span className="font-bold text-2xl	text-cyan-900">QUICKSHARE</span>
           </Link>
           <div className="max-md:hidden">
-            <HomeOutlinedIcon />
-          </div>
-          <div className="max-md:hidden">
             <GridViewOutlinedIcon />
           </div>
           <div className="flex items-cente gap-x-4 border border-neutral-300 p-2 rounded-lg max-md:hidden">

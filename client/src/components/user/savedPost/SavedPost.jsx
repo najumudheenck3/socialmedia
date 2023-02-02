@@ -22,7 +22,7 @@ const SavedPost = () => {
     <div className="flex flex-col gap-12">
       {savedPosts.length > 0 &&
         savedPosts?.map((savedPost) => (
-          <Post post={savedPost} key={savedPost.id} />
+          <Post post={savedPost} savedPost={true} key={savedPost.id} />
         ))}
       {savedPosts.length === 0 && (
         <div className=" p-10 bg-white shadow-md  rounded-lg flex flex-col items-center justify-center gap-y-6">

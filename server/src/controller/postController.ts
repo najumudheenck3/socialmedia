@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import userModel from "../model/userModel";
 import postModel from "../model/postModel";
 import mongoose from "mongoose";
+import reportModel from "../model/reportModel";
 
 export const createPost = async (req: Request, res: Response) => {
   const { imageLinkss, desscription, userIdd } = req.body;
@@ -87,5 +88,75 @@ export const getAllSAvedPost = async (req: Request, res: Response) => {
       ]);
     console.log(user?.savedPost, "userrrrrrrrrrrrrrrrrrrrrr");
     res.json({ Message: "saved post data fetched successfully",data:user?.savedPost, success: true });
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+    
+  }
 };
+
+export const deletePost=async(req: Request, res: Response)=>{
+  console.log(req.params,'ini nokkam');
+  const postId=req.params.postId
+  try {
+    const response = await postModel.findByIdAndDelete({ _id: postId });
+    res.json({ success: true, message: "deleted post successfully" });
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
+
+export const editPost=async(req: Request, res: Response)=>{
+  console.log(req.body);
+  const postId=req.body.postId
+  const descripcion=req.body.editDescription
+  try {
+    const afterEdit=await postModel.findByIdAndUpdate(postId,{descripcion})
+    res.json({ success: true, message: "edit post successfully" });
+  } catch (error) {
+    
+  }
+}
+
+export const reportPost=async(req: Request, res: Response)=>{
+  console.log(req.body);
+  const userId=req.body.userIdd
+  const postId=req.body.postId
+  const text=req.body.reason
+  try {
+    const report=await reportModel.findOne({
+      postId
+    })
+    console.log(report);
+    if (report) {
+      report?.userText?.push({
+        userId: userId,
+        text: text,
+      });
+      report.save();
+      res.json({
+        success: true,
+        message: "report post successfully",
+      });
+    } else {
+      await new reportModel({
+        postId,
+        userText: [
+          {
+            userId: userId,
+            text: text,
+          },
+        ],
+      }).save();
+  
+      res.json({
+        success: true,
+        message: "report post successfully",
+      });
+    }
+    
+  } catch (error) {
+    console.log(error);
+    
+  }
+}

@@ -78,3 +78,47 @@ export const getAllSavedPost=async()=>{
         
     }
 }
+
+export const deleteOnePost=async(postId)=>{
+    try {
+        const {data}=await userApi.delete(`/delete-post/${postId}`,{
+            withCredentials: true,
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+        })
+        return data.success
+    } catch (error) {
+        
+    }
+}
+
+export const editPost=async(editPostData)=>{
+    try {
+        const {data}=await userApi.put('/edit-post',editPostData,{
+            withCredentials: true,
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+        })
+        if(data.success){
+            toast.success(data.message);
+            return data.success
+        }
+    } catch (error) {
+        
+    }
+}
+
+export const reportPost=async(reportData)=>{
+try {
+    const {data}=await userApi.post('/report-post',reportData,{
+        withCredentials: true,
+        headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+    })
+} catch (error) {
+    
+}
+}

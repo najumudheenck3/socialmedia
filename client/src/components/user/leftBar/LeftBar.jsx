@@ -32,8 +32,10 @@ const LeftBar = () => {
             <span>{user?.userDetails.firstName}</span>
           </div>
           <div className="flex items-center gap-x-3  hover:bg-slate-300 h-12 p-2 rounded">
+          <Link className="flex items-center gap-x-3" to="/shorts">
             <SmartDisplayOutlinedIcon />
             <span>Shorts</span>
+            </Link>
           </div>
           <div className="flex items-center gap-x-3  hover:bg-slate-300 h-12 p-2 rounded">
             <Link className="flex items-center gap-x-3" to="/friend-requests">
