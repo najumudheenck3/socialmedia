@@ -4,7 +4,7 @@ import { loginUser, registerUser, verifyAccount } from "../controller/authContro
 import { getAllCommentReply, getAllPosts, likeComment, postComment, postCommentReply } from "../controller/commentController";
 import {  getConversation, postNewConversation } from "../controller/conversationController";
 import { addMessage, getMessage } from "../controller/messageContoller";
-import { createPost, deletePost, editPost, getAllSAvedPost, getPost, likePost, reportPost, savePost } from "../controller/postController";
+import { createPost, createShorts, deletePost, editPost, getAllSAvedPost, getPost, getShorts, likePost, reportPost, savePost } from "../controller/postController";
 import { acceptRequest, deleteRequest, followUser, getAllFollowers, getAllFollowing, getAllRequest, getChatUser, getUserProfile, updateUserProfile } from "../controller/userController";
 const authMiddeleware=require('../middleware/authMiddleware')
 
@@ -65,6 +65,10 @@ router.delete('/delete-post/:postId',authMiddeleware,deletePost)
 router.put('/edit-post',authMiddeleware,editPost)
 
 router.post('/report-post',authMiddeleware,reportPost)
+
+router.post('/shorts',authMiddeleware,createShorts)
+
+router.get('/get-all-shorts',authMiddeleware,getShorts)
 
 
 module.exports = router;

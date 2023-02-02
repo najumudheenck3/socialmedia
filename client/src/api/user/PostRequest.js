@@ -122,3 +122,37 @@ try {
     
 }
 }
+
+export const uploadShorts = async (data1) => {
+    try {
+        console.log(data1, "data");
+        const {data}= await userApi.post('/shorts', data1, {
+            withCredentials: true,
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+        })
+      if(data.success){
+        toast.success(data.message);
+        return data.success
+      }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const getAllShorts=async ()=>{
+    try {
+        const {data}=await userApi.get('/get-all-shorts',{
+            withCredentials: true,
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+        })
+        if(data.success){
+            return data.data
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}

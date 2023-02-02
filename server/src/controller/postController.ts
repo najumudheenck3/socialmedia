@@ -19,7 +19,7 @@ export const createPost = async (req: Request, res: Response) => {
 
 export const getPost = async (req: Request, res: Response) => {
   try {
-    const allPosts = await postModel.find().populate("userId");
+    const allPosts = await postModel.find({shorts:null}).populate("userId");
     return res.json({ data: allPosts.reverse(), success: true });
   } catch (error) {}
 };
@@ -158,5 +158,48 @@ export const reportPost=async(req: Request, res: Response)=>{
   } catch (error) {
     console.log(error);
     
+  }
+}
+
+
+export const createShorts = async (req: Request, res: Response) => {
+  const { videoLinks, desscription, userIdd } = req.body;
+  try {
+    const post = new postModel({
+      userId: userIdd,
+      descripcion: desscription,
+      shorts: videoLinks,
+    });
+    await post.save();
+    return res.json({ message: "post uploaded successfully", success: true });
+  } catch (error) {}
+};
+
+export const getShorts = async (req: Request, res: Response) => {
+  try {
+    const allShorts = await postModel.find({shorts:{$exists :true}}).populate("userId");
+   
+    return res.json({ data: allShorts.reverse(), success: true });
+  } catch (error) {}
+};
+
+export const getAllReportedPosts=async(req: Request, res: Response)=>{
+  try {
+    console.log("adminlogindata");
+    const allReportedPosts = await reportModel.find({}).populate("postId").populate("userText.userId");
+    console.log(allReportedPosts);
+    
+    res.send({
+      message: "reported posts fetched successfully",
+      success: true,
+      data: allReportedPosts,
+    });
+  } catch (error) {
+    console.log(error);
+    res.send({
+      message: "error in fetching reported posts",
+      success: false,
+      error,
+    });
   }
 }

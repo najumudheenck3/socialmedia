@@ -22,7 +22,12 @@ const LeftBar = () => {
             <span>users</span>
             </Link>
           </div>
-       
+          <div className="flex items-center gap-x-3  hover:bg-cyan-900 h-12 p-2 rounded">
+          <Link className="flex items-center gap-x-3" to='post-management'>
+            <FeaturedVideoOutlinedIcon/>
+            <span>Posts</span>
+            </Link>
+          </div>
           <div className="flex items-center gap-x-3  hover:bg-cyan-900 h-12 p-2 rounded">
             <FeaturedVideoOutlinedIcon/>
             <span>Advertisement</span>

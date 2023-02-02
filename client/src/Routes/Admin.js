@@ -7,6 +7,8 @@ import PublicRouteAdmin from './PublicRouteAdmin'
 import Home from '../pages/admin/Home'
 import Login from '../pages/admin/Login'
 import UserList from '../pages/admin/UserList'
+import ReportPost from '../pages/admin/ReportPost'
+import ReportedUsers from '../components/admin/reportUsers/ReportedUsers'
 
 const Admin = () => {
   const Layout = () => {
@@ -26,6 +28,8 @@ const Admin = () => {
         <Route path="/" element={<ProtectedRouteAdmin><Layout /></ProtectedRouteAdmin>}  >
           <Route path='' element={<Home/>}></Route>
           <Route path='user-list' element={<UserList/>}></Route>
+          <Route path='post-management' element={<ReportPost/>}></Route>
+          <Route path='report-detail' element={<ReportedUsers/>}></Route>
         </Route>
       </Routes>
    <Routes>

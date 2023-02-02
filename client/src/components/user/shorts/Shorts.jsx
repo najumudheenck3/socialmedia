@@ -1,68 +1,23 @@
-import React from 'react'
-
-import { Reels } from '@sayings/react-reels'
-import '@sayings/react-reels/dist/index.css'
+import React, { useEffect, useState } from "react";
+import { getAllShorts } from "../../../api/user/PostRequest";
+import Short from "../short/Short";
 
 const Shorts = () => {
-    // type ReelsType = [{
-    //     id: number; // unique identifier
-    //     reelInfo: {
-    //         url: string; // Video url
-    //         type: string; // Type of the video
-    //         description?: string; // Description of the video
-    //         postedBy?: {
-    //             avatar: string; // Image Url of Avatar 
-    //             name: string; // Name of the uploader
-    //         };
-    //         likes?: {
-    //             count: number; // number of likes
-    //         };
-    //         dislikes?: {
-    //             count: number; // number of dislikes
-    //         };;
-    //         comments?: {
-    //             count: number; // number of comments
-    //         };
-    //         shares?: {
-    //             count: number; // number of shares
-    //         }; 
-    //     }
-    //     rightMenu?: { // Right Three dot menu
-    //         options: Array<{ // each option
-    //             id: number; // unique identifier
-    //             label: string; // display label
-    //             value: string; // actual value
-    //         }>
-    //     };
-    //     bottomSection?: { // If Custom Component is used for Avatar, description etc instead of default
-    //         component: JSX.Element; // Any HTML or JSX Element
-    //     };
-    // }]
-
-    let reels=[{
-        id:1,
-        reelInfo:{
-            url:"https://youtube.com/shorts/6XmVSaWalJA?feature=share"
-        }
-    }]
-  return (
-    <Reels
-      reels={reels}
-    //   reelMetaInfo={reelMetaInfo}
-      onMenuItemClicked={(event) => {
-          console.log(event.value) 
-          // other actions
-      }}
-      onLikeClicked={(reel) => {
-          console.log(reel) // current Reel Data
-          // other actions
-      }}
-      onDislikeClicked={(reel) => console.log(reel)}
-      onCommentClicked={(reel) => console.log(reel)}
-      onShareClicked={(reel) => console.log(reel)}
-      onAvatarClicked={(reel) => console.log(reel)}
-    />
-  )
-}
+  const [shorts, setShorts] = useState([]);
+  let allShorts;
+  useEffect(() => {
+    const getShorts = async () => {
+      allShorts = await getAllShorts();
+      setShorts(allShorts);
+    };
+    getShorts();
+  }, []);
+  console.log(shorts, "shortsssssss");
+  return <div className="flex flex-col gap-12">
+  {shorts?.map((post) => (
+    <Short post={post} key={post.id} />
+  ))}
+</div>
+};
 
 export default Shorts;

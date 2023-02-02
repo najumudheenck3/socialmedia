@@ -13,6 +13,7 @@ import MessageOutlinedIcon from "@mui/icons-material/MessageOutlined";
 
 import { useSelector } from "react-redux";
 import PostModal from "../postModal/PostModal";
+import ShortsModal from "../shortsModal/ShortsModal";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ const Navbar = () => {
   const [profImg] = useState(user?.userDetails.profileImage);
   const [dorpDown, setDropDown] = useState(false);
   const [showModal, setShowModal] = React.useState(false);
+  const [videoModal,setVideoModal]=useState(false)
   const handleClose = () => {
     setShowModal(false);
   };
@@ -74,7 +76,11 @@ const Navbar = () => {
                 <RestoreOutlinedIcon />
                 <h1>Story</h1>
               </div>
-              <div className="flex gap-6 cursor-pointer">
+              <div className="flex gap-6 cursor-pointer"
+              onClick={() => {
+                setVideoModal(!videoModal);
+                setDropDown(!dorpDown);
+              }}>
                 <SlideshowOutlinedIcon />
                 <h1>Shorts</h1>
               </div>
@@ -103,6 +109,7 @@ const Navbar = () => {
           </div>
         </div>
         <PostModal visible={showModal} onClose={handleClose} />
+        {videoModal && <ShortsModal setVideoModal={setVideoModal}/>}
       </div>
     </>
   );

@@ -4,7 +4,9 @@ export  interface AddPost extends Document{
     userId:mongoose.Types.ObjectId;
     descripcion: string;
     img: string[];
+    shorts:string;
     likes: string[];
+    isActive:boolean;
 }
 
 const postSchema:Schema=new Schema({
@@ -17,11 +19,20 @@ const postSchema:Schema=new Schema({
         type: String,
     },
     img: [{
-        type: String
+        type: String,
+        default:null
     }],
+    shorts:{
+        type: String,
+        default:null
+    },
     likes:[{
         type: String
-    }]
+    }],
+    isActive:{
+        type:Boolean,
+        default:true
+    }
 },{
     timestamps: true,
 })
