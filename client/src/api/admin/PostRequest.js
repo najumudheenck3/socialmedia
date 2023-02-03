@@ -39,3 +39,39 @@ export const changePostStatus=async (postId)=>{
         console.log('dkljfldkferrroor');
     }
 }
+
+export const fetchComments = async (postId) => {
+    try {
+        const { data } = await adminApi.get(`/all-comments/${postId}`, {
+            withCredentials: true,
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("adminToken"),
+            },
+        })
+        if (data.success) {
+            console.log(data.comments, 'hook ileakk povanullath');
+            return data.comments
+        }
+    } catch (error) {
+
+    }
+}
+
+
+export const getAllCommentReplies = async (commentId) => {
+
+    try {
+        const { data } = await adminApi.get(`/all-comment-replies/${commentId}`, {
+            withCredentials: true,
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("adminToken"),
+            },
+        })
+        if (data.success) {
+            return data.commentsReplies
+        }
+    } catch (error) {
+        console.log(error);
+    }
+
+}

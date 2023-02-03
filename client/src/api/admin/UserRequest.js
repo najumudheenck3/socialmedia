@@ -39,3 +39,52 @@ export const changeUserStatus=async (userId)=>{
         console.log('dkljfldkferrroor');
     }
 }
+
+export const getUserProfile = async (id) => {
+    try {
+      console.log(id, 'prodilegeting id');
+      const { data } = await adminApi.get(`/get-user-profile/${id}`, {
+        withCredentials: true,
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("adminToken"),
+        },
+      })
+      if (data.success) {
+        return data.data
+      }
+    } catch (error) {
+  
+    }
+  }
+
+  export const getAllFollowers=async(userId)=>{
+    try {
+      const {data}=await adminApi.get(`/get-all-followers/${userId}`,{
+        withCredentials: true,
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("adminToken"),
+        },
+      })
+      if(data.success){
+        return data.data
+    }
+    } catch (error) {
+      
+    }
+  }
+  
+  export const getAllFollowing=async(userId)=>{
+    try {
+      const {data}=await adminApi.get(`/get-all-following/${userId}`,{
+        withCredentials: true,
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("adminToken"),
+        },
+      })
+      if(data.success){
+        return data.data
+    }
+    } catch (error) {
+      
+    }
+  }

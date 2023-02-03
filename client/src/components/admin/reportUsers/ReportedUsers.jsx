@@ -1,10 +1,15 @@
 import React from "react";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { getOnePost } from "../../../api/admin/PostRequest";
+import Post from "../onePost/OnePost";
 
 const ReportedUsers = () => {
   const location = useLocation();
   const users = location.state;
-  console.log(users);
+  const [onePostView,setOnePostView]=useState(false)
+ 
+ 
   return (
     <div className="relative m-2 p-2 overflow-x-auto bg-white shadow-md sm:rounded-lg w-10/12">
       <div className="flex items-center justify-between py-2  dark:bg-gray-800"></div>
@@ -17,14 +22,12 @@ const ReportedUsers = () => {
             <th scope="col" className="px-6 py-3">
               Reason
             </th>
-            <th scope="col" className="px-6 py-3">
-              Reported Users
-            </th>
+           
             
           </tr>
         </thead>
         <tbody>
-          {users?.map((user) => (
+          {users?.userText?.map((user) => (
             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
               <th
                 scope="row"
@@ -45,16 +48,16 @@ const ReportedUsers = () => {
                 </div>
               </th>
               <td className="px-6 py-4 ">{user.text}</td>
-              <td className="px-6 py-4">
-                <div className="flex items-center ">
-                  <button className="hover:underline">View</button>
-                </div>
-              </td>
+           
               
             </tr>
           ))}
         </tbody>
       </table>
+      <div className="text-center pt-3 ">
+        <button className="bg-specclr p-1 text-white rounded-md" onClick={()=>setOnePostView(!onePostView)}>View Post</button>
+      </div>
+      {onePostView && <Post post={users?.postId}/>}
     </div>
   );
 };

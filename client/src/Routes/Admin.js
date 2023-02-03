@@ -9,6 +9,7 @@ import Login from '../pages/admin/Login'
 import UserList from '../pages/admin/UserList'
 import ReportPost from '../pages/admin/ReportPost'
 import ReportedUsers from '../components/admin/reportUsers/ReportedUsers'
+import UserProfile from '../pages/admin/UserProfile'
 
 const Admin = () => {
   const Layout = () => {
@@ -30,6 +31,7 @@ const Admin = () => {
           <Route path='user-list' element={<UserList/>}></Route>
           <Route path='post-management' element={<ReportPost/>}></Route>
           <Route path='report-detail' element={<ReportedUsers/>}></Route>
+          <Route path='user-profile' element={<UserProfile/>}></Route>
         </Route>
       </Routes>
    <Routes>

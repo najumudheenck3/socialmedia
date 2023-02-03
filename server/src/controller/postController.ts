@@ -203,3 +203,38 @@ export const getAllReportedPosts=async(req: Request, res: Response)=>{
     });
   }
 }
+
+export const changePostStatus=async(req: Request, res: Response)=>{
+  try {
+    console.log(req.body, "blocking iddd");
+    const postId = req.body.postId;
+    console.log(postId);
+
+    const post = await postModel.findById({ _id: postId });
+    console.log(post, "blockign user");
+
+    if (post) {
+      if (post.isActive) {
+        console.log(post, "blocki1111gn user");
+        post.isActive = false;
+      } else {
+        console.log(post, "blocki2222gn user");
+        post.isActive = true;
+      }
+      await post.save();
+    }
+    const allReportedPosts = await reportModel.find({}).populate("postId").populate("userText.userId");
+    res.send({
+      message: "Post-status change successfully",
+      success: true,
+      data: allReportedPosts,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      message: "error in fetching post",
+      success: false,
+      error,
+    });
+  }
+}

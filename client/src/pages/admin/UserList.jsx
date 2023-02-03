@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import Moment from "react-moment";
+import { useNavigate } from "react-router-dom";
 import { changeUserStatus, getAllUsers } from "../../api/admin/UserRequest";
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     getAllUsers().then((users) => {
       setUsers(users);
@@ -13,6 +15,9 @@ const UserList = () => {
     changeUserStatus(userId).then((users) => {
       setUsers(users);
     });
+  };
+  const toProfile = (userId) => {
+    navigate("/admin/user-profile", { state: { id: userId } });
   };
   return (
     <div className="relative m-2 p-2 overflow-x-auto bg-white shadow-md sm:rounded-lg w-10/12">
@@ -54,7 +59,7 @@ const UserList = () => {
               Position
             </th>
             <th scope="col" className="px-6 py-3">
-              Status
+              Data of Birth
             </th>
             <th scope="col" className="px-6 py-3">
               Action
@@ -66,7 +71,10 @@ const UserList = () => {
             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
               <th
                 scope="row"
-                className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
+                className="flex items-center cursor-pointer px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
+                onClick={() => {
+                  toProfile(user?._id);
+                }}
               >
                 <img
                   className="w-10 h-10 rounded-full object-cover"
@@ -75,16 +83,15 @@ const UserList = () => {
                 />
                 <div className="pl-3">
                   <div className="text-base font-semibold">
-                    {user.firstName} {user.lastName}
+                    {user?.firstName} {user?.lastName}
                   </div>
                   <div className="font-normal text-gray-500">{user.email}</div>
                 </div>
               </th>
-              <td className="px-6 py-4">React Developer</td>
+              <td className="px-6 py-4"> <Moment format="YYYY-MM-DD HH:mm">{user?.createdAt}</Moment></td>
               <td className="px-6 py-4">
                 <div className="flex items-center">
-                  <div className="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>{" "}
-                  Online
+                  {user?.dob?<Moment format="YYYY-MM-DD HH:mm">{user?.dob}</Moment>:"--"}
                 </div>
               </td>
               <td className="px-6 py-4">
