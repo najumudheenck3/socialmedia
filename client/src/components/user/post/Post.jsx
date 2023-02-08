@@ -223,11 +223,15 @@ const Post = ({ post ,savedPost}) => {
         )}
         {/* content */}
         <div className="my-5">
-          <img
+{
+ post?.shorts?<video className="w-full object-cover max-h-96 mb-5" width="400" controls>
+ <source src={post?.shorts} />
+</video>: <img
             className="w-full object-cover max-h-96 mb-5"
             src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
             alt=""
           />
+}
 
           <p>{post?.descripcion}</p>
         </div>
@@ -252,7 +256,7 @@ const Post = ({ post ,savedPost}) => {
             onClick={() => setCommnetOpen(!commentOpen)}
           >
             <ChatBubbleOutlineRoundedIcon />
-            {comm.length ? comm.length : ""} Comments
+            Comments
           </div>{" "}
           <div className="flex items-center gap-2 cursor-pointer text-sm">
             <SendRoundedIcon className="-rotate-45" />

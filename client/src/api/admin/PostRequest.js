@@ -75,3 +75,18 @@ export const getAllCommentReplies = async (commentId) => {
     }
 
 }
+
+export const getAllNotifications = async () => {
+    const { data } = await adminApi.get("/get-all-notifications",  {
+      withCredentials: true,
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("adminToken"),
+      },
+    });
+    if(data.success){
+        console.log(data.data,'notiffications');
+        return data.data
+
+    }
+  
+  }

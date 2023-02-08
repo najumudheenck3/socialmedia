@@ -1,6 +1,6 @@
 import  express, { Router }  from "express";
 const router:Router = express.Router();
-import { changeUserStatus, getAllUsers, loginAdmin } from "../controller/adminController";
+import { changeUserStatus, fetDashboardDetails, getAllNotification, getAllUsers, loginAdmin } from "../controller/adminController";
 import { getAllCommentReply, getAllPosts } from "../controller/commentController";
 import { changePostStatus, getAllReportedPosts } from "../controller/postController";
 import { getAllFollowers, getAllFollowing, getUserProfile } from "../controller/userController";
@@ -26,5 +26,9 @@ router.get('/all-comment-replies/:commentId',authMiddeleware,getAllCommentReply)
 router.get('/get-all-followers/:userId',authMiddeleware,getAllFollowers)
 
 router.get('/get-all-following/:userId',authMiddeleware,getAllFollowing)
+
+router.get('/get-all-notifications',authMiddeleware,getAllNotification)
+
+router.get('/get-details',authMiddeleware,fetDashboardDetails)
 
 module.exports = router;

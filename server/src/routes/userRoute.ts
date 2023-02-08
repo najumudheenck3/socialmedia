@@ -5,7 +5,7 @@ import { getAllCommentReply, getAllPosts, likeComment, postComment, postCommentR
 import {  getConversation, postNewConversation } from "../controller/conversationController";
 import { addMessage, getMessage } from "../controller/messageContoller";
 import { createPost, createShorts, deletePost, editPost, getAllSAvedPost, getPost, getShorts, likePost, reportPost, savePost } from "../controller/postController";
-import { acceptRequest, deleteRequest, followUser, getAllFollowers, getAllFollowing, getAllRequest, getChatUser, getUserProfile, updateUserProfile } from "../controller/userController";
+import { acceptRequest, deleteRequest, followUser, getAllFollowers, getAllFollowing, getAllNotification, getAllRequest, getChatUser, getUserProfile, searchUserList, setPrivateAccount, suggestionUsers, updateUserProfile } from "../controller/userController";
 const authMiddeleware=require('../middleware/authMiddleware')
 
 router.post('/register',registerUser)
@@ -70,5 +70,12 @@ router.post('/shorts',authMiddeleware,createShorts)
 
 router.get('/get-all-shorts',authMiddeleware,getShorts)
 
+router.post('/search-users',authMiddeleware,searchUserList)
+
+router.put('/set-private-account',authMiddeleware,setPrivateAccount)
+
+router.get('/get-all-notifications',authMiddeleware,getAllNotification)
+
+router.get('/suggestion-users',authMiddeleware,suggestionUsers)
 
 module.exports = router;

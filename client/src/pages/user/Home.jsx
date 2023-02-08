@@ -17,8 +17,8 @@ const Home = () => {
   }, [postUpdateRefresh===true]);
   console.log(posts, "allpost");
   return (
-    <div >
-      <Stories/>
+    <div className='w-full'>
+      {/* <Stories/> */}
       <Posts posts={posts}/>
     </div>
   )

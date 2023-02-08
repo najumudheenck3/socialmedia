@@ -13,9 +13,9 @@ const ProtectedRoute = (props) => {
             let userInfo
             const getAddUserInfo = async () => {
                 userInfo = await getUserProfile(localStorage.getItem('userId'))
-                if (userInfo) {
-                    console.log(userInfo[0].userId, 'userInfo[0].userId');
-                  await dispatch(userActions.setUserDetails(userInfo[0].userId))
+                if (userInfo?.user) {
+                    console.log(userInfo?.user, 'userInfo[0].userId');
+                  await dispatch(userActions.setUserDetails(userInfo?.user))
                 }
 
             }
@@ -28,7 +28,8 @@ const ProtectedRoute = (props) => {
         console.log('ullilund');
         return props.children
     
-    } else {
+    } 
+    if(!localStorage.getItem('token')){
         console.log('ividae varunnund');
         return <Navigate to='/login' />
     }

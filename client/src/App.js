@@ -5,6 +5,7 @@ import Admin from './Routes/Admin';
 import { Toaster } from "react-hot-toast";
 import { useSelector } from 'react-redux';
 import Spinner from './components/user/spinner/Spinner';
+import Error from './pages/user/Error';
 
 function App() {
 const {loading}=useSelector(state=>state.alerts)
@@ -20,6 +21,9 @@ const {loading}=useSelector(state=>state.alerts)
         <Routes>
           <Route path='/admin/*' element={<Admin />} />
         </Routes>
+        {/* <Routes>
+          <Route path='*' element={<Error />} />
+        </Routes> */}
       </Router>
     </>
   );

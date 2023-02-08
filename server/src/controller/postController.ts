@@ -3,6 +3,7 @@ import userModel from "../model/userModel";
 import postModel from "../model/postModel";
 import mongoose from "mongoose";
 import reportModel from "../model/reportModel";
+import adminModel from "../model/adminModel";
 
 export const createPost = async (req: Request, res: Response) => {
   const { imageLinkss, desscription, userIdd } = req.body;
@@ -32,10 +33,24 @@ export const likePost = async (req: Request, res: Response) => {
     if (!post) {
       return res.json({ message: "post not found", success: false });
     }
-
     if (!post.likes.includes(userId)) {
       console.log(post, "ithall likepost");
       await post.updateOne({ $push: { likes: userId } });
+      if( userId !== post.userId){
+
+        await userModel.findOneAndUpdate(
+         { _id: post.userId},
+         {
+           $push: {
+             notification: { 
+               postId:post._id,
+               userId: userId,
+               text: "liked your post",
+           }
+           }
+         }
+       );
+      }
       return res.json({ message: "post liked successfully", success: true });
     } else {
       await post.updateOne({ $pull: { likes: userId } });
@@ -124,6 +139,7 @@ export const reportPost=async(req: Request, res: Response)=>{
   const postId=req.body.postId
   const text=req.body.reason
   try {
+    const admin = await adminModel.findOne({ username: "admin" });
     const report=await reportModel.findOne({
       postId
     })
@@ -138,6 +154,11 @@ export const reportPost=async(req: Request, res: Response)=>{
         success: true,
         message: "report post successfully",
       });
+      admin?.notification.push({
+        userId: userId,
+        text: "reported a post",
+      });
+      admin?.save();
     } else {
       await new reportModel({
         postId,
@@ -153,6 +174,11 @@ export const reportPost=async(req: Request, res: Response)=>{
         success: true,
         message: "report post successfully",
       });
+      admin?.notification.push({
+        userId: userId,
+        text: "reported a post",
+      });
+      admin?.save();
     }
     
   } catch (error) {
@@ -186,9 +212,8 @@ export const getShorts = async (req: Request, res: Response) => {
 export const getAllReportedPosts=async(req: Request, res: Response)=>{
   try {
     console.log("adminlogindata");
-    const allReportedPosts = await reportModel.find({}).populate("postId").populate("userText.userId");
-    console.log(allReportedPosts);
-    
+    const allReportedPosts = await reportModel.find({}).populate("postId").populate([{ path: 'postId', populate: { path: 'userId' }}]).populate("userText.userId");
+
     res.send({
       message: "reported posts fetched successfully",
       success: true,

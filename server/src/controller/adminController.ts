@@ -93,3 +93,38 @@ export const changeUserStatus = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const getAllNotification=async(req: Request, res: Response)=>{
+  try{
+     
+    const admin=await adminModel.find({username:"admin"}).populate('notification.userId', { firstName: 1, lastName: 1, _id: 1, profileImage: 1 })
+
+ if(admin){
+  console.log(admin[0]?.notification,'notifications');
+  res.status(200).send({ success: true,data:admin[0]?.notification });
+ }
+  
+
+
+  }catch(error){
+    console.log(error);
+
+  }
+}
+
+export const fetDashboardDetails=async (req: Request, res: Response)=>{
+  try {
+    const userCount=await userModel.find({}).count()
+    const activeCount=await userModel.find({isActive:true}).count()
+    console.log(activeCount,'userCountuserCount');
+    res.status(200).send({
+      message: "all datas fetched successfully",
+      success: true,
+      userCount: userCount,
+      activeCount:activeCount,
+    });
+  } catch (error) {
+    
+  }
+
+}

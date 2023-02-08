@@ -9,12 +9,14 @@ import { Link } from "react-router-dom";
 
 const LeftBar = () => {
   return (
-    <div className="bg-specclr m-2 rounded text-white  h-screen w-2/12 max-sm:absolute max-md:absolute max-lg:absolute">
+    <div className="bg-specclr sticky top-16 m-2 rounded text-white  h-screen w-2/12 max-sm:absolute max-md:absolute max-lg:absolute">
       <div className="p-7">
         <div className="flex flex-col space-y-6 ">
           <div className="flex items-center gap-x-3  hover:bg-cyan-900 h-12 p-2 rounded">
+          <Link className="flex items-center gap-x-3" to=''>
             <GridViewOutlinedIcon/>
             <span>Dashboard</span>
+            </Link>
           </div>
           <div className="flex items-center gap-x-3  hover:bg-cyan-900 h-12 p-2 rounded">
             <Link className="flex items-center gap-x-3" to='user-list'>
@@ -33,8 +35,10 @@ const LeftBar = () => {
             <span>Advertisement</span>
           </div>
           <div className="flex items-center gap-x-3  hover:bg-cyan-900 h-12 p-2 rounded">
+          <Link className="flex items-center gap-x-3" to='notifications'>
             <NotificationsNoneOutlinedIcon/>
             <span>Notifications</span>
+            </Link>
           </div>
           <div className="flex items-center gap-x-3  hover:bg-cyan-900 h-12 p-2 rounded" onClick={()=>{
                 localStorage.clear()

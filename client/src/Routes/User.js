@@ -12,10 +12,12 @@ import ProtectedRoute from './ProtectedRoute'
 import PublicRoute from './PublicRoute'
 import MobileFooter from '../components/user/mobilefooter/MobileFooter'
 import Messenger from '../pages/user/Messenger'
-import Notifications from '../components/user/notifications/Notifications'
+import Notifications from '../pages/user/Notifications'
 import EditProfile from '../components/user/editProfile/EditProfile'
 import Request from '../components/user/request/Request'
 import Shorts from '../components/user/shorts/Shorts'
+import Search from '../pages/user/Search'
+import Settings from '../pages/user/Settings'
 
 
 const User = () => {
@@ -48,6 +50,8 @@ const User = () => {
           <Route path='edit-profile' element={<EditProfile/>}></Route>
           <Route path='friend-requests' element={<Request/>}></Route>
           <Route path='shorts' element={<Shorts/>}></Route>
+          <Route path='search' element={<Search/>}></Route>
+          <Route path='settings' element={<Settings/>}></Route>
         </Route>
       </Routes>
       <Routes>

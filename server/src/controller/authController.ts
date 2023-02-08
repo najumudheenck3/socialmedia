@@ -62,6 +62,9 @@ export const loginUser = async (req: Request, res: Response) => {
     if(!user.isActive){
       return res.json({message:"Blodked you",success:false})
     }
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    console.log(hashedPassword)
     const isMatch=await bcrypt.compare(password,user.password)
     if(!isMatch){
       return res.json({message:"Invalid Credentials",success:false})

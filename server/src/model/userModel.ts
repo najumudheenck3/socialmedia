@@ -22,6 +22,11 @@ export interface IUser extends Document {
   followers: string[];
   following: string[];
   savedPost: string[];
+  notification:[{
+    userId:mongoose.Types.ObjectId
+    postId:mongoose.Types.ObjectId
+    text:string
+  }]
 }
 
 const UserSchema: Schema = new Schema(
@@ -105,7 +110,20 @@ const UserSchema: Schema = new Schema(
         type: Schema.Types.ObjectId,
         ref: "post",
       }
-    ]
+    ],
+    notification:[{
+      postId:{
+        type:mongoose.Types.ObjectId,
+        ref:"post"
+      },
+      userId:{
+        type:mongoose.Types.ObjectId,
+        ref:"user"
+      },
+      text:{
+        type:String
+      }
+    }]
   },
   {
     timestamps: true,

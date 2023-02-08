@@ -25,6 +25,7 @@ const Comments = ({ postId, setComm }) => {
 
   return (
     <div>
+      <h1 className="font-semibold mt-2">{comments?.length} comments</h1>
       <div className="flex items-center justify-between gap-5 my-5">
         <img
           className="h-10 w-10 rounded-full object-cover"
@@ -47,7 +48,7 @@ const Comments = ({ postId, setComm }) => {
           send
         </button>
       </div>
-      <div className="h-64 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-thumb-rounded-full  overflow-y-scroll ">
+      <div className="max-h-64 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-thumb-rounded-full  overflow-y-scroll ">
         {comments.map((comment) => (
           <Comment comment={comment} key={comment._id}/>
         ))}

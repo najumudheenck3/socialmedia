@@ -14,10 +14,11 @@ const ProtectedRouteAdmin = (props) => {
     
     const admin = useSelector((state) =>state.admin);
     console.log(admin, 'kkkk');
-    if (admin.adminToken) {
+    if (localStorage.getItem('adminToken') &&admin.adminToken) {
         console.log('ullilund');
         return props.children
-    } else {
+    } 
+    if(!localStorage.getItem('adminToken') ){
         console.log('ividae varunnund');
         return <Navigate to='/admin/login' />
     }

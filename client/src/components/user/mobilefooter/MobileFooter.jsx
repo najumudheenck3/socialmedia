@@ -19,11 +19,11 @@ const MobileFooter = () => {
       <Link className="flex items-center gap-x-3" to="/">
         <HomeOutlinedIcon />
       </Link>
-      <SearchOutlinedIcon />
+      <SearchOutlinedIcon className="cursor-pointer" onClick={()=>navigate('/search')}/>
       <Link className="flex items-center gap-x-3" to="/shorts">
         <SlideshowOutlinedIcon />
       </Link>
-      <NotificationsNoneOutlinedIcon />
+      <NotificationsNoneOutlinedIcon className="cursor-pointer" onClick={()=>navigate('/notifications')}/>
       <div className="cursor-pointer"
       onClick={() => {
         toProfile(user?.userDetails._id);

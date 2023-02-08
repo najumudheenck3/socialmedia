@@ -5,11 +5,8 @@ import { userApi } from '../../utils/apiCall';
 export const signUp = async (formData) => {
   try {
     const { data } = await userApi.post('/register', formData)
-    if (data.success) {
-      toast.success(data.message);
-    } else {
-      toast.error(data.message);
-    }
+    return data
+  
   } catch (error) {
     toast.error('errooor');
   }

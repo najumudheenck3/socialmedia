@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { signUp } from "../../api/user/AuthRequest";
 import { Link } from "react-router-dom";
-
+import { toast } from "react-hot-toast";
+import { hideLoading, showLoading } from "../../redux/alertSlice";
+import { useDispatch } from "react-redux";
 const Register = () => {
+  const dispatch = useDispatch();
   const initialValues = {
     firstName: "",
     lastName: "",
@@ -32,13 +35,20 @@ const Register = () => {
         confirmPassword: "",
       });
   };
-  const handleSubmit = (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
     setDataErrors(validate(formData));
     seIsSubmit(true);
     if (Object.keys(dataErrors).length === 0 && isSubmit) {
       console.log(formData, "okkkk");
-      signUp({ ...formData, confirmPassword: undefined });
+      dispatch(showLoading());
+      const data=await signUp({ ...formData, confirmPassword: undefined });
+      dispatch(hideLoading());
+      if (data.success) {
+        toast.success(data.message);
+      } else {
+        toast.error(data.message);
+      }
       resetForm()
     }
   };

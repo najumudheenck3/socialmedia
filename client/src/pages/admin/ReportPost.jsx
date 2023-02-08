@@ -4,6 +4,8 @@ import {
   changePostStatus,
   getAllReportedPosts,
 } from "../../api/admin/PostRequest";
+import { confirmAlert } from 'react-confirm-alert'; //alert
+import 'react-confirm-alert/src/react-confirm-alert.css';  //alert
 
 const ReportPost = () => {
   const [reportedPosts, setReportedPosts] = useState([]);
@@ -15,6 +17,7 @@ const ReportPost = () => {
     });
   }, []);
   const toReportDetail = (reportData) => {
+    console.log(reportData,'reportdataaaa')
     navigate("/admin/report-detail", { state: reportData });
   };
   const changeStatus = (postId) => {
@@ -22,6 +25,22 @@ const ReportPost = () => {
       setReportedPosts(report);
     });
   };
+
+  const handleDeleteAlert=(postId)=>{
+    confirmAlert({
+      title: 'Confirm to ',
+      message: 'Are you change post status.',
+      buttons: [
+        { 
+          label: 'Yes',
+          onClick: () => {changeStatus(postId)}
+        },
+        {
+          label: 'No',
+        }
+      ]
+    });
+  }
   return (
     <div className="relative m-2 p-2 overflow-x-auto bg-white shadow-md sm:rounded-lg w-10/12">
       <div className="flex items-center justify-between py-2  dark:bg-gray-800"></div>
@@ -85,7 +104,7 @@ const ReportPost = () => {
                     data-modal-target="editUserModal"
                     data-modal-show="editUserModal"
                     className="font-medium text-red-600 dark:text-red-500 hover:underline cursor-pointer"
-                    onClick={() => changeStatus(reportedPost?.postId?._id)}
+                    onClick={() => handleDeleteAlert(reportedPost?.postId?._id)}
                   >
                     Hide
                   </button>
@@ -96,7 +115,7 @@ const ReportPost = () => {
                     data-modal-target="editUserModal"
                     data-modal-show="editUserModal"
                     className="font-medium text-green-600 dark:text-green-500 hover:underline cursor-pointer"
-                    onClick={() => changeStatus(reportedPost?.postId?._id)}
+                    onClick={() => handleDeleteAlert(reportedPost?.postId?._id)}
                   >
                     UnHide
                   </button>

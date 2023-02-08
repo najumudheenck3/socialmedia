@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Moment from "react-moment";
 import { useNavigate } from "react-router-dom";
 import { changeUserStatus, getAllUsers } from "../../api/admin/UserRequest";
+import { confirmAlert } from 'react-confirm-alert'; //alert
+import 'react-confirm-alert/src/react-confirm-alert.css';  //alert
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -19,6 +21,22 @@ const UserList = () => {
   const toProfile = (userId) => {
     navigate("/admin/user-profile", { state: { id: userId } });
   };
+
+  const handleDeleteAlert=(postId)=>{
+    confirmAlert({
+      title: 'Confirm to ',
+      message: 'Are you change user status.',
+      buttons: [
+        { 
+          label: 'Yes',
+          onClick: () => {changeStatus(postId)}
+        },
+        {
+          label: 'No',
+        }
+      ]
+    });
+  }
   return (
     <div className="relative m-2 p-2 overflow-x-auto bg-white shadow-md sm:rounded-lg w-10/12">
       <div className="flex items-center justify-between py-4  dark:bg-gray-800">
@@ -56,7 +74,7 @@ const UserList = () => {
               Name
             </th>
             <th scope="col" className="px-6 py-3">
-              Position
+              Joined On
             </th>
             <th scope="col" className="px-6 py-3">
               Data of Birth
@@ -101,7 +119,7 @@ const UserList = () => {
                     data-modal-target="editUserModal"
                     data-modal-show="editUserModal"
                     className="font-medium text-red-600 dark:text-red-500 hover:underline cursor-pointer"
-                    onClick={() => changeStatus(user._id)}
+                    onClick={() => handleDeleteAlert(user._id)}
                   >
                     Block
                   </button>
@@ -112,7 +130,7 @@ const UserList = () => {
                     data-modal-target="editUserModal"
                     data-modal-show="editUserModal"
                     className="font-medium text-green-600 dark:text-green-500 hover:underline cursor-pointer"
-                    onClick={() => changeStatus(user._id)}
+                    onClick={() => handleDeleteAlert(user._id)}
                   >
                     UnBlock
                   </button>

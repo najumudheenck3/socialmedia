@@ -26,6 +26,21 @@ export const postComment = async (req: Request, res: Response) => {
       select: { firstName: 1,lastName:1,profileImage:1 },
     });
     console.log(postComment, "postcomment aafter populate");
+    if( userId !== post.userId){
+
+      await userModel.findOneAndUpdate(
+       { _id: post.userId},
+       {
+         $push: {
+           notification: { 
+             postId:post._id,
+             userId: userId,
+             text: "commented your post",
+         }
+         }
+       }
+     );
+    }
   
     res.json({message:'commented posted successfully',success:true,comment:postComment})
     

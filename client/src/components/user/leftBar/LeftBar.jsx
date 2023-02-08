@@ -6,6 +6,8 @@ import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNone
 import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+
 
 const LeftBar = () => {
   const navigate = useNavigate();
@@ -29,59 +31,52 @@ const LeftBar = () => {
               src={profImg?profImg:"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
               alt=""
             />
-            <span>{user?.userDetails.firstName}</span>
+            <span>{user?.userDetails.firstName} {user?.userDetails.lastName}</span>
           </div>
-          <div className="flex items-center gap-x-3  hover:bg-slate-300 h-12 p-2 rounded">
           <Link className="flex items-center gap-x-3" to="/shorts">
+          <div className="flex items-center gap-x-3 w-full hover:bg-slate-300 h-12 p-2 rounded">
             <SmartDisplayOutlinedIcon />
             <span>Shorts</span>
-            </Link>
           </div>
-          <div className="flex items-center gap-x-3  hover:bg-slate-300 h-12 p-2 rounded">
+            </Link>
             <Link className="flex items-center gap-x-3" to="/friend-requests">
+          <div className="flex items-center gap-x-3 w-full hover:bg-slate-300 h-12 p-2 rounded">
               <PeopleAltOutlinedIcon />
               <span>Friends</span>
-            </Link>
           </div>
-          <div className="flex items-center gap-x-3  hover:bg-slate-300 h-12 p-2 rounded">
+            </Link>
             <Link className="flex items-center gap-x-3" to="/messenger">
+          <div className="flex items-center gap-x-3 w-full hover:bg-slate-300 h-12 p-2 rounded">
               <MessageOutlinedIcon />
               <span>Messages</span>
-            </Link>
           </div>
-          <div className="flex items-center gap-x-3  hover:bg-slate-300 h-12 p-2 rounded">
+            </Link>
             <Link className="flex items-center gap-x-3" to="notifications">
+          <div className="flex items-center gap-x-3 w-full hover:bg-slate-300 h-12 p-2 rounded">
               <NotificationsNoneOutlinedIcon />
               <span>Notifications</span>
-            </Link>
           </div>
+            </Link>
+            <Link className="flex items-center gap-x-3" to="login">
           <div
-            className="flex items-center gap-x-3  hover:bg-slate-300 h-12 p-2 rounded"
+            className="flex items-center gap-x-3 w-full hover:bg-slate-300 h-12 p-2 rounded"
             onClick={() => {
               localStorage.clear();
             }}
           >
-            <Link className="flex items-center gap-x-3" to="login">
               <ExitToAppOutlinedIcon />
               <span>Logout</span>
-            </Link>
           </div>
+            </Link>
         </div>
         <hr className="my-2 bg-slate-300 h-0.5" />
-        <div className="flex flex-col space-y-2 ">
+        <div className="flex flex-col space-y-2 h-48">
           <span className="pl-2 text-sm">Your shortcuts</span>
-          <div className="flex items-center gap-x-3  hover:bg-slate-300 h-12 p-2 rounded">
-            <MessageOutlinedIcon />
-            <span>Messages</span>
+          <div className="flex items-center gap-x-3 cursor-pointer  hover:bg-slate-300 h-12 p-2 rounded" onClick={()=>navigate('/settings')}>
+            <SettingsOutlinedIcon />
+            <span>Settings</span>
           </div>
-          <div className="flex items-center gap-x-3  hover:bg-slate-300 h-12 p-2 rounded">
-            <NotificationsNoneOutlinedIcon />
-            <span>Notifications</span>
-          </div>
-          <div className="flex items-center gap-x-3  hover:bg-slate-300 h-12 p-2 rounded">
-            <MessageOutlinedIcon />
-            <span>Messages</span>
-          </div>
+      
         </div>
       </div>
     </div>

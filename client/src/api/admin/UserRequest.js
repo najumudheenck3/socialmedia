@@ -88,3 +88,19 @@ export const getUserProfile = async (id) => {
       
     }
   }
+
+  export const fetDashboardDetails=async ()=>{
+    try {
+      const {data}=await adminApi.get(`/get-details`,{
+        withCredentials: true,
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("adminToken"),
+        },
+      })
+      if(data.success){
+        return data
+    }
+    } catch (error) {
+      
+    }
+  }

@@ -10,6 +10,7 @@ import Conversations from "../../components/user/conversations/Conversations";
 import Messages from "../../components/user/messages/Messages";
 import Navbar from "../../components/user/nvabar/Navbar";
 import { io } from "socket.io-client";
+import MobileFooter from "../../components/user/mobilefooter/MobileFooter";
 
 const Messenger = () => {
   const user = useSelector((state) => state.user);
@@ -101,7 +102,7 @@ const Messenger = () => {
       {/* messenger main */}
       <div className="h-[calc(100vh-80px)] flex">
         {/* chatMenu */}
-        <div className="w-3/12">
+        <div className="w-3/12 max-md:w-1/5">
           {/* chatmenu wraper */}
           <div className=" p-3 h-full">
             <input
@@ -116,7 +117,7 @@ const Messenger = () => {
           </div>
         </div>
         {/* chatBox */}
-        <div className="w-6/12 ">
+        <div className="w-6/12 max-md:w-4/5">
           {/* chatwraper */}
           <div className=" p-3 h-full flex flex-col justify-between relative">
             {/* chatBox top */}
@@ -156,13 +157,14 @@ const Messenger = () => {
           </div>
         </div>
         {/* chatOnline */}
-        <div className="w-3/12">
+        <div className="w-3/12  max-md:hidden">
           {/* chatonline wraper */}
           <div className=" p-3 h-full">
             <ChatOnline onlineUsers={onlineUsers} currentId={user?.userDetails._id} setCurrentChat={setCurrentChat}/>
           </div>
         </div>
       </div>
+      <MobileFooter/>
     </>
   );
 };
